@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "j6oZ5kBzNBs=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\poptr\\Documents\\Code Projects\\Game\\bobcos\\bobcos-server\\Bobcos Server\\Bobcos Server\\Bobcos Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\poptr\\.nuget\\packages\\litenetlib\\1.2.0\\litenetlib.1.2.0.nupkg.sha512",
+    "C:\\Users\\poptr\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

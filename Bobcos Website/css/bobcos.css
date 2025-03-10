@@ -1,0 +1,340 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+  }
+  
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  
+  p, h1, h2 {
+    font-family: Verdana, sans-serif;
+  }
+  
+  @keyframes example {
+    from {
+      perspective-origin: 5000%;
+    }
+    to {
+      perspective-origin: 20000%;
+    }
+  }
+  
+  .background {
+    width: 100vw;
+    height: 90vh;
+    position: absolute;
+    perspective: 100px;
+    animation-name: example;
+    animation-duration: 400s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+ /* .background div {
+    width: 10000vw;
+    height: 90vh;
+    position: absolute;
+    image-rendering: pixelated;
+    background-size: contain;
+  }*/
+  #back1 {
+    background-image: url("/assets/stars.png");
+    transform: scale(0.99) translateZ(1px);
+  }
+  
+  #back2 {
+    background-image: url("/assets/backSky.png");
+    transform: scale(0.98) translateZ(2px);
+  }
+  
+  #back3 {
+    background-image: url("/assets/backMountain.png");
+    transform: scale(0.96) translateZ(4px);
+  }
+  
+  #back4 {
+    background-image: url("/assets/backHills.png");
+    transform: scale(0.94) translateZ(6px);
+  }
+  
+  #back5 {
+    background-image: url("./assets/backTrees.png");
+    transform: scale(0.91) translateZ(9px);
+  }
+  
+  #back6 {
+    background-image: url("/assets/backTreesFront.png");
+    transform: scale(0.87) translateZ(13px);
+  }
+  
+  .home {
+    align-items: center;
+    width: 100vw;
+    height: 90vh;
+    position: relative;
+  }
+  
+  .logo {
+    image-rendering: pixelated;
+    width: 588px;
+    height: 196px;
+    margin-top: 100px;
+    opacity: 0;
+  }
+
+  .downloads {
+    gap: 10px;
+    align-items: center;
+    margin-top: 100px;
+  }
+  
+  .downloads h2 {
+    opacity: 0;
+  }
+  
+  .downloads .links {
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .downloadButton {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    width: 170px;
+    background-color: gray;
+    padding-bottom: 6px;
+    opacity: 0;
+  
+    border-width: 2px;
+    border-color: black;
+    border-bottom-color: black;
+    border-style: solid;
+    text-decoration: none;
+    user-select: none;
+  }
+  
+  .buttonInside {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    flex: 1;
+    background-color: #ebe9e8;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: black;
+  }
+  
+  
+  .downloadButton:active {
+    padding-bottom: 0px;
+    margin-top: 6px;
+  }
+  
+  .icon {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+  }
+  
+  .downloadButton p {
+    color: #000;
+    font-size: 20px;
+  }
+  
+ 
+.about {
+    width: 100vw;
+    position: relative;
+    z-index: 2;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    gap: 60px;
+  }
+  
+  .carousel {
+    flex-direction: row;
+    position: relative;
+    width: 640px;
+    height: 360px;
+    overflow: hidden;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+  .carousel::-webkit-scrollbar{
+    display: none;
+    width: 0 !important;
+  }
+  
+  .images {
+    flex-direction: row;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+  }
+  
+  .images > img {
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    user-select: none;
+  }
+  
+  .prev, .next {
+    position: absolute;
+    margin: 5px;
+    padding: 8px 8px 4px 8px;
+    background-color: rgba(255,255,255,0.4);
+    user-select: none;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+  
+  .prev {
+    left: 0;
+  }
+  
+  .next {
+    right: 0;
+  }
+  
+  .fullscreen {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  .fullscreen > .carousel {
+    width: 1280px;
+    height: 720px;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+  
+  .content {
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .content p {
+    margin-bottom: 6px;
+  }
+  
+  .carouselContainer .close {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 10px;
+    background-color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  
+  .carouselContainer.fullscreen .close {
+    display: flex;
+  }
+  
+  footer {
+    background-color: #e2dae6;
+  }
+  
+  .socialMedia {
+    align-items: center;
+    padding: 30px;
+  }
+  
+  .socialMedia h2 {
+    margin-bottom: 15px;
+  }
+  
+  .socialMedia .links {
+    align-items: center;
+    flex-direction: row;
+    gap: 25px;
+  }
+  
+  @keyframes shake {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(15deg);
+    }
+    80% {
+      transform: rotate(-10deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .socialMedia .links a:hover {
+    animation-name: shake;
+    animation-duration: 0.35s;
+  }
+  
+  @media only screen and (max-width: 1200px) {
+    .content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .content.right {
+      flex-direction: column-reverse;
+    }
+
+  }
+  .contentText {
+    max-width: 400px;
+  }
+  
+  .contentText h1 {
+    margin-bottom: 10px;
+  }
+  
+  .update {
+    align-items: center;
+    padding: 40px;
+  }
+  
+  .updateBanner {
+    image-rendering: pixelated;
+    width: 700px;
+    height: 268px;
+  }
+  .pageLinks {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    color: black;
+    margin-top: 20px;
+  }
+  
+  .pageLinks a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+  }
