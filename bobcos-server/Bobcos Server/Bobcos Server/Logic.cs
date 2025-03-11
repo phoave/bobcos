@@ -839,7 +839,7 @@ namespace Bobcos_Server
             ServerSend.SendCash((int)idofplayer, Logic.GetGems(Server.Clients[(int)idofplayer].user.username.ToUpper()));
 
 
-            ServerSend.SendChat(idofplayer, "<color=green>In game rules</color>");
+            ServerSend.SendChat(idofplayer, "<color=yellow>In game rules</color>");
             ServerSend.SendChat(idofplayer, "-Swearing, being toxic, causing drama is not allowed.");
             ServerSend.SendChat(idofplayer, "-Scamming, Hosting Drop games, Casinos are illegal.");
             ServerSend.SendChat(idofplayer, "-Hacking, exploiting,auto-clicker,macro ,bots,any third party program, etc. is not allowed");
@@ -871,7 +871,7 @@ namespace Bobcos_Server
                     worlds[worldname.ToUpper()].SendEnteredToEveryoneExpectClient(Server.Clients[(int)idofplayer].user.realusername, true, (int)idofplayer);
 
 
-                    ServerSend.SendChat((int)idofplayer, "Entered to <color=green>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
+                    ServerSend.SendChat((int)idofplayer, "Entered to <color=yellow>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
 
 
                     worlds[worldname.ToUpper()].SendPositionToEveryonexpectClient(Server.Clients[(int)idofplayer].user.xpos, Server.Clients[(int)idofplayer].user.ypos, (int)idofplayer, false);
@@ -1062,7 +1062,7 @@ namespace Bobcos_Server
 
 
 
-                ServerSend.SendChat((int)idofplayer, "Entered to <color=green>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
+                ServerSend.SendChat((int)idofplayer, "Entered to <color=yellow>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
 
 
 
@@ -1501,7 +1501,7 @@ namespace Bobcos_Server
                 foreach (KeyValuePair<int,Client> client in Server.Clients)
                 {
 
-                    ServerSend.SendChat(client.Value.id, $"<color=grey>Global Message from</color><color=green> ({Server.Clients[clientid].user.username.ToUpper()})</color><color=grey> In</color> <color=cyan>[{Server.Clients[clientid].user.World.ToUpper()}]:</color> {Message}  ");
+                    ServerSend.SendChat(client.Value.id, $"<color=grey>Global Message from</color><color=yellow> ({Server.Clients[clientid].user.username.ToUpper()})</color><color=grey> In</color> <color=cyan>[{Server.Clients[clientid].user.World.ToUpper()}]:</color> {Message}  ");
                    
                 }
             }
@@ -1567,7 +1567,7 @@ namespace Bobcos_Server
 
 
 
-            ServerSend.SendChat((int)playerid, "Entered to <color=green>" + WorldName + "</color>. Theres " + Playersinworld.Count + " People here.");
+            ServerSend.SendChat((int)playerid, "Entered to <color=yellow>" + WorldName + "</color>. Theres " + Playersinworld.Count + " People here.");
 
 
 

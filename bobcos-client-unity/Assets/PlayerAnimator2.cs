@@ -221,7 +221,7 @@ public class PlayerAnimator2 : MonoBehaviour
             {
                 break;
             }
-            yield return new WaitForSeconds(6f * Time.deltaTime);
+            yield return new WaitForSeconds(14f * Time.deltaTime);
             currentanimid = 1; UpdateCloths();
 
             MainSprite.sprite = animations[currentanimid];
@@ -229,7 +229,7 @@ public class PlayerAnimator2 : MonoBehaviour
             {
                 break;
             }
-            yield return new WaitForSeconds(6f * Time.deltaTime);
+            yield return new WaitForSeconds(14f * Time.deltaTime);
             currentanimid = 2; UpdateCloths();
 
             MainSprite.sprite = animations[currentanimid];
@@ -237,7 +237,7 @@ public class PlayerAnimator2 : MonoBehaviour
             {
                 break;
             }
-            yield return new WaitForSeconds(6f * Time.deltaTime);
+            yield return new WaitForSeconds(14f * Time.deltaTime);
             currentanimid = 3; UpdateCloths();
 
             MainSprite.sprite = animations[currentanimid];
@@ -245,7 +245,7 @@ public class PlayerAnimator2 : MonoBehaviour
             {
                 break;
             }
-            yield return new WaitForSeconds(6f * Time.deltaTime);
+            yield return new WaitForSeconds(14f * Time.deltaTime);
         }
     }
     void playFallingAnim()

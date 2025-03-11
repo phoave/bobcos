@@ -68,7 +68,7 @@ namespace Bobcos_Server
 
 
 
-                                            ServerSend.SendChat(clientId, "<color=green>Crafting item!</color>");
+                                            ServerSend.SendChat(clientId, "<color=yellow>Crafting item!</color>");
 
                                             CraftData data = new CraftData();
                                             data.resultItem = r.ItemResult;
@@ -142,7 +142,7 @@ namespace Bobcos_Server
                                             Logic.AddItemToInventory(Server.Clients[clientId].user.username, t2.id, -r.item2idMinCount);
                                             Logic.AddItemToInventory(Server.Clients[clientId].user.username, t.id, -r.item1idMinCount);
 
-                                            ServerSend.SendChat(clientId, "<color=green>Crafting item!</color>");
+                                            ServerSend.SendChat(clientId, "<color=yellow>Crafting item!</color>");
 
                                             CraftData data = new CraftData();
                                             data.resultItem = r.ItemResult;
@@ -221,7 +221,7 @@ namespace Bobcos_Server
                 // get item
                 Logic.AddItemToInventory(Server.Clients[clientid].user.username.ToUpper(), acc.Craftdata1.resultItem, recipe[acc.Craftdata1.recipeid].constantResultCount);
                 Logic.GetInventoryAndSend(clientid, Server.Clients[clientid].user.username.ToUpper());
-                ServerSend.SendChat(clientid, $"<color=green>Crafted Item! You got {recipe[acc.Craftdata1.recipeid].constantResultCount} {itemdata.items[acc.Craftdata1.resultItem].itemname} </color>");
+                ServerSend.SendChat(clientid, $"<color=yellow>Crafted Item! You got {recipe[acc.Craftdata1.recipeid].constantResultCount} {itemdata.items[acc.Craftdata1.resultItem].itemname} </color>");
                 acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + Server.Clients[clientid].user.username.ToUpper() + ".json"));
                 //refresh acc
                 acc.Craftdata1 = new CraftData() { resultItem = 0, recipeid = 0 };
@@ -268,7 +268,7 @@ namespace Bobcos_Server
                     Logic.AddItemToInventory(Server.Clients[clientId].user.username, r.item1id, -r.item2idMinCount);
                     Logic.AddItemToInventory(Server.Clients[clientId].user.username, r.item2id, -r.item1idMinCount);
 
-                    ServerSend.SendChat(clientId, "<color=green>Crafting item!</color>");
+                    ServerSend.SendChat(clientId, "<color=yellow>Crafting item!</color>");
 
                     CraftData data = new CraftData();
                     data.resultItem = r.ItemResult;
@@ -328,7 +328,7 @@ namespace Bobcos_Server
                     Logic.AddItemToInventory(Server.Clients[clientId].user.username, r.item1id, -r.item2idMinCount);
                     Logic.AddItemToInventory(Server.Clients[clientId].user.username, r.item2id, -r.item1idMinCount);
 
-                    ServerSend.SendChat(clientId, "<color=green>Crafting item!</color>");
+                    ServerSend.SendChat(clientId, "<color=yellow>Crafting item!</color>");
 
                     CraftData data = new CraftData();
                     data.resultItem = r.ItemResult;
@@ -426,7 +426,7 @@ namespace Bobcos_Server
                 Logic.AddItemToInventory(Server.Clients[clientid].user.username.ToUpper(), acc.Data[order].resultItem, recipe[acc.Data[order].recipeid].constantResultCount);
 
                 Logic.GetInventoryAndSend(clientid, Server.Clients[clientid].user.username.ToUpper());
-                ServerSend.SendChat(clientid, $"<color=green>Crafted Item! You got {recipe[acc.Data[order].recipeid].constantResultCount} {itemdata.items[acc.Data[order].resultItem].itemname} </color>");
+                ServerSend.SendChat(clientid, $"<color=yellow>Crafted Item! You got {recipe[acc.Data[order].recipeid].constantResultCount} {itemdata.items[acc.Data[order].resultItem].itemname} </color>");
                 //refresh acc
                 acc.Data[order] = new CraftData() { resultItem = 0, recipeid = 0 };
 

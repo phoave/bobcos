@@ -517,6 +517,8 @@ public   class ClientHandle
         {
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Punch());
+            PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Talk());
+            PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().playWalkingAnim());
             
 
         }

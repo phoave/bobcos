@@ -155,7 +155,7 @@ namespace Bobcos_Server
                         // }
 
 
-                        ServerSend.SendResult(_Fromcliemt, 1, "<color=green>Logged in successfully!</color>");
+                        ServerSend.SendResult(_Fromcliemt, 1, "<color=yellow>Logged in successfully!</color>");
                         //Send news
 
                         ServerSend.SendLoading(_Fromcliemt, 0, "Account.");
@@ -164,7 +164,7 @@ namespace Bobcos_Server
                         useraccount acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + accountname.ToUpper() + ".json"));
                         Server.Clients[_Fromcliemt].user.realusername = acc.username;
 
-                        ServerSend.SendChat(_Fromcliemt, "Welcome to Bobcos. Visit World <color=green>Bobcos</color> To get rewards.");
+                        ServerSend.SendChat(_Fromcliemt, "Welcome to Bobcos. Visit World <color=yellow>Bobcos</color> To get rewards.");
 
                         ServerSend.SendCash(_Fromcliemt, Logic.GetGems(Server.Clients[_Fromcliemt].user.username.ToUpper()));
                     }
@@ -213,7 +213,7 @@ namespace Bobcos_Server
                     int c = Logic.TryToCreateAccount(accountname,password,email);
                     if (c == 1)
                     {
-                        ServerSend.SendWarning(_Fromcliemt,  "<color=green>Account created!</color>");
+                        ServerSend.SendWarning(_Fromcliemt,  "<color=yellow>Account created!</color>");
                     }
                     else if (c == 2)
                     {
@@ -307,7 +307,7 @@ namespace Bobcos_Server
                 Logic.AddItemToInventory(Server.Clients[_fromClient].user.username, FishId, -Amount);
                 Logic.GetInventoryAndSend(_fromClient, Server.Clients[_fromClient].user.username);
                 Logic.AddGems(Server.Clients[_fromClient].user.username, itemdata.items[FishId].fishGemAmount * Amount);
-                ServerSend.SendChat(_fromClient, $"<color=green>You successfully sold your fish(s) {itemdata.items[FishId].itemname} {Amount} x for {Amount * itemdata.items[FishId].fishGemAmount} Gems.");
+                ServerSend.SendChat(_fromClient, $"<color=yellow>You successfully sold your fish(s) {itemdata.items[FishId].itemname} {Amount} x for {Amount * itemdata.items[FishId].fishGemAmount} Gems.");
                 ServerSend.SendCash(_fromClient, Logic.GetGems(Server.Clients[_fromClient].user.username));
             }
             else
@@ -807,7 +807,7 @@ namespace Bobcos_Server
                     Logic.AddGems(Server.Clients[_Fromcliemt].user.username.ToUpper(), randomgemcount);
 
                     ServerSend.SendCash(_Fromcliemt, Logic.GetGems(Server.Clients[_Fromcliemt].user.username.ToUpper()));
-                    ServerSend.SendChat(_Fromcliemt, $"<color=green>Thank you for watching ad! You are rewarded with {randomgemcount} gems.</color>");
+                    ServerSend.SendChat(_Fromcliemt, $"<color=yellow>Thank you for watching ad! You are rewarded with {randomgemcount} gems.</color>");
                     useraccount acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[_Fromcliemt].user.username.ToUpper()}.json"));
 
 

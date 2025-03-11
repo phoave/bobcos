@@ -122,7 +122,7 @@ namespace Bobcos_Server
                             {
 
 
-                                ServerSend.SendChat(playerids.peer.Id, $"Private Message from <color=green>{Server.Clients[clientId].user.username}</color> : {text}  ");
+                                ServerSend.SendChat(playerids.peer.Id, $"Private Message from <color=yellow>{Server.Clients[clientId].user.username}</color> : {text}  ");
                                 ServerSend.SendChat(clientId, "Sended private message to player!");
 
                                 return;
@@ -409,7 +409,7 @@ namespace Bobcos_Server
 
 
 
-                    string texttosend = $"<color=green>Game status</color> {Environment.NewLine} <color=grey>{totalPlayersOnline} Players online</color> {Environment.NewLine} <color=grey>Time: {DateTime.Now.ToString()} GMT+1</color>";
+                    string texttosend = $"<color=yellow>Game status</color> {Environment.NewLine} <color=white>{totalPlayersOnline} Players online</color> {Environment.NewLine} <color=white>Time: {DateTime.Now.ToString()} GMT+1</color>";
 
                     ServerSend.SendChat(clientId, texttosend);
                     useraccount acc32 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[clientId].user.username.ToUpper()}.json"));
@@ -476,7 +476,7 @@ namespace Bobcos_Server
             {
                 try
                 {
-                    ServerSend.SendChat(clientId, "<color=green>In game rules</color>");
+                    ServerSend.SendChat(clientId, "<color=yellow>In game rules</color>");
                     ServerSend.SendChat(clientId, "-Swearing, being toxic, causing drama is not allowed.");
                     ServerSend.SendChat(clientId, "-Scamming, Hosting Drop games, Casinos are illegal.");
                     ServerSend.SendChat(clientId, "-Hacking, exploiting,auto-clicker,macro ,bots,any third party program, etc. is not allowed");

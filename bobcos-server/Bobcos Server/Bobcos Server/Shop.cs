@@ -80,7 +80,7 @@ namespace Bobcos_Server
             // send inventory
             Logic.GetInventoryAndSend(fromClient, Server.Clients[fromClient].user.username.ToUpper());
             ServerSend.SendCash(fromClient, Logic.GetGems(Server.Clients[fromClient].user.username.ToUpper()));
-            ServerSend.SendChat(fromClient, "<color=green>Bought Item!</color>");
+            ServerSend.SendChat(fromClient, "<color=yellow>Bought Item!</color>");
 
         }
         public static void SendShopData(int ToClient)
