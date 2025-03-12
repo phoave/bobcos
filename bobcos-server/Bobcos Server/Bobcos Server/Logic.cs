@@ -562,7 +562,7 @@ namespace Bobcos_Server
                 }
 
 
-              
+
 
                 newworldata2.fg[WorldDataConverter.convertToComplexBlock(2353)] = (short)5;
                 for (int i = 2354; i < 4703; i++)
@@ -666,13 +666,13 @@ namespace Bobcos_Server
 
                 for (int i = 2248; i <= 2400; i++)
                 {
-                    newworldata.fg[i] = (short)72;
+                    //newworldata.fg[i] = (short)72;
                     newworldata.bg[i] = (short)0;
 
                 }
                 for (int i = 2354; i <= 2399; i++)
                 {
-                    newworldata.fg[i] = (short)72;
+                    //newworldata.fg[i] = (short)72;
                     newworldata.bg[i] = (short)0;
 
                 }
@@ -680,28 +680,28 @@ namespace Bobcos_Server
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    newworldata.fg[val] = (short)71;
+                    //newworldata.fg[val] = (short)71;
                     newworldata.bg[val] = (short)0;
 
                 }
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    newworldata.fg[val] = (short)70;
+                    //newworldata.fg[val] = (short)70;
                     newworldata.bg[val] = (short)0;
 
                 }
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    newworldata.fg[val] = (short)69;
+                    //newworldata.fg[val] = (short)69;
                     newworldata.bg[val] = (short)0;
 
                 }
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    newworldata.fg[val] = (short)73;
+                    //newworldata.fg[val] = (short)73;
                     newworldata.bg[val] = (short)0;
 
                 }
@@ -709,7 +709,7 @@ namespace Bobcos_Server
                 {
                     newworldata.fg[WorldDataConverter.convertToComplexBlock(i)] = (short)11;
                 }
-                
+
                 newworldata.fg[2257] = (short)11;
                 newworldata.fg[WorldDataConverter.convertToComplexBlock(2353)] = (short)5;
 
@@ -1893,17 +1893,69 @@ try
                     {
 
                         ServerSend.SendAnim(i, 0, playerid);
+                        Console.WriteLine("punch work");
 
                     }
                 }
             }catch
             {
                 SendPunch(playerid);
+                Console.WriteLine("punch work");
             }
             
         }
+        public void SendWalk(int playerid)
+        {
+            ServerSend.SendAnim(playerid,   1, 0);
+            try
+            {
+
+                foreach (int i in Playersinworld)
+                {
+                    if (i != playerid)
+                    {
+
+                        ServerSend.SendAnim(i, 1, playerid);
+
+                        Console.WriteLine("Walk work");
+                    }
+                }
+            }
+            catch
+            {
+                SendWalk(playerid);
+                Console.WriteLine("Walk work");
+            }
+
+        }
+        public void SendTalk(int playerid)
+        {
+            ServerSend.SendAnim(playerid, 2, 0);
+            try
+            {
+
+                foreach (int i in Playersinworld)
+                {
+                    if (i != playerid)
+                    {
+
+                        ServerSend.SendAnim(i, 2, playerid);
+
+                        Console.WriteLine("SendTalk work");
+
+                    }
+                }
+            }
+            catch
+            {
+                SendTalk(playerid);
+                Console.WriteLine("SendTalk work");
+            }
+
+        }
 
     }
+
 
 
 

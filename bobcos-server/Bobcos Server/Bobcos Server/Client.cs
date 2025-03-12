@@ -43,11 +43,6 @@ namespace GameServer
 
 
 
-
-
-
-
-
             public void ReceivedBytes(byte[] bytes)
             {
                 receivedData = new Packet();

@@ -29,13 +29,7 @@ namespace Bobcos_Server
         ClientInfo = 20,
         Bubble = 21,
         
-        WarningMessage = 22
-
-
-
-
-
-
+        WarningMessage = 22,
 
 
 
@@ -67,8 +61,7 @@ namespace Bobcos_Server
         DamageData = 16,
         PasswordChange = 17
 ,
-        FisherBobAmountData = 18
-
+        FisherBobAmountData = 18,
 
 
 

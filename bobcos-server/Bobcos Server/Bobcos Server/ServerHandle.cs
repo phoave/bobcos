@@ -372,10 +372,10 @@ namespace Bobcos_Server
                 string mail = _packet.ReadString();
                 string username = _packet.ReadString();
 
-                 
+
                 //get player informations
 
-               // MailPart.GetAccountPasswordAndSendToMail(username, mail);
+                //MailPart.GetAccountPasswordAndSendToMail(username, mail);
 
             }
         }
@@ -902,8 +902,10 @@ namespace Bobcos_Server
 
 
             Logic.worlds[worldname.ToUpper()].SendPunch(_Fromcliemt);
+            Logic.worlds[worldname.ToUpper()].SendTalk(_Fromcliemt);
+        
 
-            if(worldname != "")
+            if (worldname != "")
 
 
 
@@ -1552,7 +1554,8 @@ namespace Bobcos_Server
             float y = _packet.ReadFloat();
             bool isjumping = _packet.ReadBool();
             Server.Clients[_Fromcliemt].user.SetPos(x, y, 0,isjumping);
-
+            Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendWalk(_Fromcliemt);
+           
 
         }
 
@@ -1601,8 +1604,9 @@ namespace Bobcos_Server
                     Logic.worlds[Server.Clients[_fromclient].user.World.ToUpper()].SendMessageToEveryoneInWorld($"[<color=blue>{Server.Clients[_fromclient].user.realusername}</color>]: {message}");
                     Logic.worlds[Server.Clients[_fromclient].user.World.ToUpper()].SendChatBubbleToEveryoneExpectPlayer(message, _fromclient);
                     ServerSend.SendPlayerChatBubble(_fromclient, message, 0);
+                    Logic.worlds[Server.Clients[_fromclient].user.World.ToUpper()].SendTalk(_fromclient);
 
-                 Class1.UserLog($"Player {Server.Clients[_fromclient].user.username} in world {Server.Clients[_fromclient].user.World} Sended message: {message}", Server.Clients[_fromclient].user.username);
+                    Class1.UserLog($"Player {Server.Clients[_fromclient].user.username} in world {Server.Clients[_fromclient].user.World} Sended message: {message}", Server.Clients[_fromclient].user.username);
                   Class1.WorldLog($"Player {Server.Clients[_fromclient].user.username} Sended message: {message}", Server.Clients[_fromclient].user.World);
 
 

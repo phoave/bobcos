@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Bobcos_Server;
 
 namespace Bobcos_Server
 {

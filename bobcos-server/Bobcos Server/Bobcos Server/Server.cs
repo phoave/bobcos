@@ -18,7 +18,7 @@ namespace GameServer
 
        
 
-   public    static EventBasedNetListener Netlistener;
+        public  static EventBasedNetListener Netlistener;
         public static NetManager server;
 
 

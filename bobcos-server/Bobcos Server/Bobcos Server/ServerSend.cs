@@ -132,6 +132,7 @@ namespace Bobcos_Server
 
             SendUdpData(_toclient, p);
             p.Dispose();
+
         }
         static public void SendPositionViaTCP(int _toclient, int idofplayer, float x, float y, bool isjumping)
         {
@@ -242,6 +243,9 @@ namespace Bobcos_Server
 
 
         }
+
+
+
         static public void SendItemInfo(int _toclient, string itemname, string iteminfo, bool istrashable, bool iswearable, bool isdroppable)
         {
             Packet p = new Packet((int)ServerPackets.ItemInfo);

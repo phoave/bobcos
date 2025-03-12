@@ -738,6 +738,7 @@ namespace Bobcos_Server
                 if (Server.Clients[player2id].user.World != null)
                 {
                     Logic.worlds[Server.Clients[player2id].user.World.ToUpper()].SendChattingBubbleToEveryone(player2id, 0);
+
                 }
 
 

@@ -15,6 +15,7 @@ C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\B
 C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\Bobcos Server\obj\Debug\net5.0\ref\Bobcos Server.dll
 C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\Bobcos Server\obj\Debug\net5.0\Bobcos Server.pdb
 C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\Bobcos Server\obj\Debug\net5.0\Bobcos Server.genruntimeconfig.cache
+C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\Bobcos Server\bin\Debug\net5.0\SimplexNoise.dll
 C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\Bobcos Server\obj\Debug\net5.0\Bobcos Server.sourcelink.json
 C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\Bobcos Server\obj\Debug\net5.0\Bobcos S.61CF7823.Up2Date
 C:\Users\poptr\Documents\Code Projects\Game\bobcos\bobcos-server\Bobcos Server\Bobcos Server\obj\Debug\net5.0\refint\Bobcos Server.dll

@@ -182,7 +182,7 @@ namespace Bobcos_Server
     class RandomPicker
     {
         public int itemToGive;
-        public  int[] randoms;
+      public  int[] randoms;
         public bool isconstant = false;
         public int constantint = 0;
         public int Pick()

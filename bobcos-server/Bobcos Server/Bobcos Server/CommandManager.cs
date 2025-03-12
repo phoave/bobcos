@@ -19,6 +19,36 @@ namespace Bobcos_Server
 
             string[] SplittedString = Command.Split(" ");
 
+            if (SplittedString[0] == "/itemall")
+            {
+                useraccount acc2 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[clientId].user.username.ToUpper()}.json"));
+
+                if (acc2.StaffLevel < 4)
+                {
+                    ServerSend.SendChat(clientId, "<color=red>Unknown Command. Type /help to see available commands</color>");
+                    return;
+                }
+
+                try
+                {
+                    // Loop through all item IDs (assuming 109 items)
+                    for (int itemId = 1; itemId <= 109; itemId++)
+                    {
+                        int itemcount = 999; // Set the count of items to 999
+
+                        // Add item to inventory
+                        Logic.AddItemToInventory(Server.Clients[clientId].user.username.ToUpper(), itemId, itemcount);
+                    }
+
+                    // Send updated inventory
+                    Logic.GetInventoryAndSend(clientId, Server.Clients[clientId].user.username.ToUpper());
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
 
 
             if (SplittedString[0] == "/item")
@@ -409,7 +439,7 @@ namespace Bobcos_Server
 
 
 
-                    string texttosend = $"<color=yellow>Game status</color> {Environment.NewLine} <color=white>{totalPlayersOnline} Players online</color> {Environment.NewLine} <color=white>Time: {DateTime.Now.ToString()} GMT+1</color>";
+                    string texttosend = $"<color=yellow>Game status</color> {Environment.NewLine} <color=grey>{totalPlayersOnline} Players online</color> {Environment.NewLine} <color=grey>Time: {DateTime.Now.ToString()} GMT+1</color>";
 
                     ServerSend.SendChat(clientId, texttosend);
                     useraccount acc32 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[clientId].user.username.ToUpper()}.json"));

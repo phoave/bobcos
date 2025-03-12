@@ -46,7 +46,6 @@ namespace Bobcos_Server
         public bool ServerHelloReceivedFromClient = false;
         internal bool iscatchedfish;
         internal bool isfishing;
-        public DateTime lastFishingTime;
 
         public string hwid;
         public string ip;
@@ -132,6 +131,7 @@ namespace Bobcos_Server
 
                 xpos = x; ypos = y;
                 Logic.worlds[World].SendPositionToEveryonexpectClient(xpos, ypos, id, isjumping);
+
             }
             else
             {
@@ -205,6 +205,7 @@ namespace Bobcos_Server
 
                 xpos = x; ypos = y;
                 Logic.worlds[World].SendPositionToEveryonexpectClient(xpos, ypos, id, isjumping);
+                 
             }
 
 

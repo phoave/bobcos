@@ -11,40 +11,47 @@ using GameServer;
 
 class DroppingSystem
     {
-      
 
-        public static bool DropItem(string Worldname, int itemid, int itemcount, float xpos, float ypos, int clientid)
-        {
-        if (itemdata.items[Logic.ReadWorldFg(Worldname.ToUpper())[WorldDataConverter.ConvertPosidtoComplex((int)MathF.Floor(xpos + 0.1f), (int)MathF.Floor(ypos))]].itemid != 0)
+
+    public static bool DropItem(string Worldname, int itemid, int itemcount, float xpos, float ypos, int clientid)
+    {
+        
+        /*if (itemdata.items[Logic.ReadWorldFg(Worldname.ToUpper())[WorldDataConverter.ConvertPosidtoComplex((int)MathF.Floor(xpos + 0.1f), (int)MathF.Floor(ypos))]].itemid != 0)
         {
             return false;
-        }
+        }*/
 
-            if (!File.Exists($"dropItemWorldData/{Worldname.ToUpper()}.json"))
-            {
-                DropWorldData newdata = new DropWorldData();
-                newdata.DropData = new List<DroppedItem>();
-                newdata.DropData.Add(new DroppedItem() { itemcount = itemcount, itemid = itemid, Xpos = xpos, Ypos = ypos });
+        if (!File.Exists($"dropItemWorldData/{Worldname.ToUpper()}.json"))
+        {
+           
+            DropWorldData newdata = new DropWorldData();
+            newdata.DropData = new List<DroppedItem>();
+            newdata.DropData.Add(new DroppedItem() { itemcount = itemcount, itemid = itemid, Xpos = xpos, Ypos = ypos });
 
-              
+
             File.WriteAllText($"dropItemWorldData/{Worldname.ToUpper()}.json", JsonSerializer.Serialize(newdata));
+
             Logic.worlds[Worldname.ToUpper()].SendDrop();
             return true;
-
         }
         else
-            {
-                DropWorldData datareaded = JsonSerializer.Deserialize<DropWorldData>(File.ReadAllText($"dropItemWorldData/{Worldname.ToUpper()}.json"));
+        {
+            
+            DropWorldData datareaded = JsonSerializer.Deserialize<DropWorldData>(File.ReadAllText($"dropItemWorldData/{Worldname.ToUpper()}.json"));
 
-                datareaded.DropData.Add(new DroppedItem() { itemcount = itemcount, itemid = itemid, Xpos = xpos, Ypos = ypos });
-                File.WriteAllText($"dropItemWorldData/{Worldname.ToUpper()}.json", JsonSerializer.Serialize(datareaded));
+            datareaded.DropData.Add(new DroppedItem() { itemcount = itemcount, itemid = itemid, Xpos = xpos, Ypos = ypos });
+
+  
+            File.WriteAllText($"dropItemWorldData/{Worldname.ToUpper()}.json", JsonSerializer.Serialize(datareaded));
+
+           
             Logic.worlds[Worldname.ToUpper()].SendDrop();
             return true;
-
         }
     }
 
-        public static void TakeItem(string Worldname,float posx,float posy,int clientid)
+
+    public static void TakeItem(string Worldname,float posx,float posy,int clientid)
         {
             if (!File.Exists($"dropItemWorldData/{Worldname.ToUpper()}.json"))
             {
@@ -62,11 +69,11 @@ class DroppingSystem
 
                     if(MathF.Floor(i.Xpos * 1.2f) == MathF.Floor(posx * 1.2f) && MathF.Floor(i.Ypos * 2f) == MathF.Floor(posy * 2f))
                     {
-                        //item found
+                     
 
 
 
-                    //check if items inside block
+       
 
                     if(!itemdata.items[Logic.ReadWorldFg(Worldname.ToUpper())[WorldDataConverter.ConvertPosidtoComplex((int)MathF.Floor(i.Xpos ), (int)MathF.Floor(i.Ypos))]].avoidAntiNoclip)
                     {
@@ -84,11 +91,7 @@ class DroppingSystem
 
 
 
-                    // send item to player
-
-
-                    //if player has items than more 799 dont take item and say inventory full
-
+              
 
 
 

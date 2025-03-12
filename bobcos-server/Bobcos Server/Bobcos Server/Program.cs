@@ -11,23 +11,18 @@ namespace Bobcos_Server
 
 
 
-        // I am going to add Litenet Lol
-
-
-
-
         static void Main(string[] args)
         {
 
           
-                Console.Title = "Bobcos server";
+            Console.Title = "Bobcos server";
             itemdata.Initiliaze();
             Shop.Initiliaze();
             CraftingSystem.Initiliaze();
             Server.Start(500, 2020);
             Server.server.EnableStatistics = true;
-
-              Thread T = new Thread(new ThreadStart(MainThread));
+            FishingSystem.Initialize();
+            Thread T = new Thread(new ThreadStart(MainThread));
               T.Start();
             Thread C = new Thread(new ThreadStart(DiscordPart.SetUp));
             C.Start();
