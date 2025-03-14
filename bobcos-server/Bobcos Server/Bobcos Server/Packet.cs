@@ -29,7 +29,7 @@ namespace Bobcos_Server
         ClientInfo = 20,
         Bubble = 21,
         
-        WarningMessage = 22,
+        WarningMessage = 22
 
 
 

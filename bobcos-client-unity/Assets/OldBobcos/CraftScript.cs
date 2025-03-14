@@ -9,6 +9,7 @@ public class CraftScript : MonoBehaviour
     public Image item1,item2;
 
     public GameObject NotReady;
+    public GameObject Recipe;
     public static CraftScript instance;
     public short _item1, _item2;
 
@@ -199,6 +200,14 @@ public class CraftScript : MonoBehaviour
 
     }
 
+    public void OpenRecipe()
+    {
+        Recipe.SetActive(true);
+    }
+    public void CloseRecpie()
+    {
+        Recipe.SetActive(false);
+    }
     public void Show()
     {
 

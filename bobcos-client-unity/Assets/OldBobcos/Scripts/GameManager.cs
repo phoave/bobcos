@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public string Version = "0.0.2";
+    public string Version = "0.0.3";
     public GameObject Camera;
     public string Launguage;
 
