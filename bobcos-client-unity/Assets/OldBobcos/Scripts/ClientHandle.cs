@@ -517,8 +517,19 @@ public   class ClientHandle
         {
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Punch());
-            PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Talk());
+            
+        }
+        if (animId == 1)
+        {
+            //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().playWalkingAnim());
+     
+
+        }
+        if (animId == 2)
+        {
+            //punch
+            PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Talk());
             
 
         }
@@ -624,4 +635,3 @@ public   class ClientHandle
 
     }
 }
-
