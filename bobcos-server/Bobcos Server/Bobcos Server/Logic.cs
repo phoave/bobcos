@@ -17,9 +17,9 @@ namespace Bobcos_Server
 
         public bool isWorldBanned { get; set; }
 
-       public short[] fg { get; set; }
-       public short[] bg { get; set; }
-        
+        public short[] fg { get; set; }
+        public short[] bg { get; set; }
+
     }
 
 
@@ -33,7 +33,7 @@ namespace Bobcos_Server
 
         public List<InventoryTile> inventory { get; set; }
 
-        public byte r {get; set;}
+        public byte r { get; set; }
         public byte g { get; set; }
         public byte b { get; set; }
         public byte t { get; set; }
@@ -76,7 +76,7 @@ namespace Bobcos_Server
 
     }
     class InventoryTile
-        {
+    {
 
         public int id { get; set; }
         public int count { get; set; }
@@ -86,7 +86,7 @@ namespace Bobcos_Server
     {
         public static List<string> TotalInGameReports = new List<string>();
 
-        public static void AddXp(string username,int HowMuchXp,int clientid)
+        public static void AddXp(string username, int HowMuchXp, int clientid)
         {
 
             useraccount account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + username.ToUpper() + ".json"));
@@ -97,23 +97,23 @@ namespace Bobcos_Server
 
             account.level = (int)MathF.Floor((float)account.Xp / 10000f);
 
-            if(account.level >= 100)
+            if (account.level >= 100)
             {
                 account.level = 100;
             }
-            if(account.level != oldlevel)
+            if (account.level != oldlevel)
             {
                 //send leveled up message
                 ServerSend.SendWarning(clientid, $"You have leveled up! You are now {account.level} Level!");
             }
-            
+
             File.WriteAllText("accounts/" + username.ToUpper() + ".json", JsonSerializer.Serialize(account));
 
         }
 
 
 
-        public static void BanPlayer(string whobanned,string _PlayerName,int HowManyDays, int HowManHours, int HowManyMinutes,string banreason)
+        public static void BanPlayer(string whobanned, string _PlayerName, int HowManyDays, int HowManHours, int HowManyMinutes, string banreason)
         {
             string PlayerName = _PlayerName.ToUpper();
             useraccount account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + PlayerName.ToUpper() + ".json"));
@@ -138,11 +138,11 @@ namespace Bobcos_Server
                     }
                 }
             }
-            DiscordPart.SendSystemMessage($"[{DateTime.Now}] Player got banned for { account.BanExpireTime - DateTime.Now} for reason {banreason} by {whobanned}");
+            DiscordPart.SendSystemMessage($"[{DateTime.Now}] Player got banned for {account.BanExpireTime - DateTime.Now} for reason {banreason} by {whobanned}");
             File.WriteAllText("accounts/" + PlayerName.ToUpper() + ".json", dataofacc);
         }
 
-        public static void mutePlayer(string whoMuted,string PlayerName, int HowManyDays, int HowManHours, int HowManyMinutes,string MuteReason)
+        public static void mutePlayer(string whoMuted, string PlayerName, int HowManyDays, int HowManHours, int HowManyMinutes, string MuteReason)
         {
             useraccount account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + PlayerName.ToUpper() + ".json"));
 
@@ -163,11 +163,11 @@ namespace Bobcos_Server
                     }
                 }
             }
-            DiscordPart.SendSystemMessage($"[{DateTime.Now}] Player got muted for { account.MuteExpireTime - DateTime.Now} for reason {MuteReason} by {whoMuted}");
+            DiscordPart.SendSystemMessage($"[{DateTime.Now}] Player got muted for {account.MuteExpireTime - DateTime.Now} for reason {MuteReason} by {whoMuted}");
 
             File.WriteAllText("accounts/" + PlayerName.ToUpper() + ".json", dataofacc);
         }
-        public static void warnPlayer(string whowarned,string PlayerName, string Reason)
+        public static void warnPlayer(string whowarned, string PlayerName, string Reason)
         {
             useraccount account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + PlayerName.ToUpper() + ".json"));
 
@@ -182,7 +182,7 @@ namespace Bobcos_Server
 
                     if (a.Value.user.username.ToUpper() == PlayerName.ToUpper())
                     {
-                        ServerSend.SendWarning(a.Value.id,  $"<color=red>Warning From System: You got warned: {Reason}.</color>");
+                        ServerSend.SendWarning(a.Value.id, $"<color=red>Warning From System: You got warned: {Reason}.</color>");
                     }
                 }
             }
@@ -212,14 +212,15 @@ namespace Bobcos_Server
                 {
                     return 3;
 
-                } else
+                }
+                else
                 {
                     useraccount acc = new useraccount() { username = username, password = password, email = email };
                     acc.inventory = new List<InventoryTile>();
                     acc.inventory.Add(new InventoryTile() { id = 2, count = 1 });
                     acc.inventory.Add(new InventoryTile() { id = 29, count = 1 });
 
-                
+
 
                     acc.t = 255;
                     acc.r = 255;
@@ -252,9 +253,9 @@ namespace Bobcos_Server
                 useraccount acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + username.ToUpper() + ".json"));
                 if (acc.password == password)
                 {
-                    
+
                     //Check account online state
-                    foreach(KeyValuePair<int,Client> a in Server.Clients)
+                    foreach (KeyValuePair<int, Client> a in Server.Clients)
                     {
 
 
@@ -304,22 +305,22 @@ namespace Bobcos_Server
 
             //Search on fg tiles
             int count = 0;
-            foreach(short i in n.fg )
+            foreach (short i in n.fg)
             {
                 if (i == itemdata.whitedoorid)
                 {
                     // get position of that tile
-                    
-               return    WorldDataConverter.ConvertComplexidtopos(count);
+
+                    return WorldDataConverter.ConvertComplexidtopos(count);
                 }
                 count++;
             }
-            return new int[] { 0,0};
+            return new int[] { 0, 0 };
 
         }
 
 
-        static public void EditWorldFg(string worldname,int blockid,int blocktoset)
+        static public void EditWorldFg(string worldname, int blockid, int blocktoset)
         {
             worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
             n.fg[blockid] = (short)blocktoset;
@@ -334,7 +335,7 @@ namespace Bobcos_Server
 
         }
 
-        static public void GetInventoryAndSend(int _toclient,string username)
+        static public void GetInventoryAndSend(int _toclient, string username)
         {
             useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{username.ToUpper()}.json"));
             ServerSend.SendInventory(_toclient, i.inventory);
@@ -348,94 +349,94 @@ namespace Bobcos_Server
         }
 
 
-        static public bool CheckItemInInventory(string username,int itemid,int itemcount)
+        static public bool CheckItemInInventory(string username, int itemid, int itemcount)
         {
             useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{username.ToUpper()}.json"));
 
-          
-              
 
 
-            if(itemid == 0)
+
+
+            if (itemid == 0)
             {
                 return true;
 
             }
 
-                foreach (InventoryTile c in i.inventory)
+            foreach (InventoryTile c in i.inventory)
+            {
+                if (c.id == itemid)
                 {
-                    if (c.id == itemid)
-                    {
-                    if(c.count >= itemcount)
+                    if (c.count >= itemcount)
                     {
                         return true;
                     }
 
-                      
-                    }
-                   
+
+                }
+
 
             }
             return false;
 
         }
-        static public bool AddItemToInventory(string username,int itemid,int itemcount)
+        static public bool AddItemToInventory(string username, int itemid, int itemcount)
         {
             useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{username.ToUpper()}.json"));
 
 
 
-                foreach (InventoryTile c in i.inventory)
+            foreach (InventoryTile c in i.inventory)
+            {
+                if (c.id == itemid)
                 {
-                    if (c.id == itemid)
+
+
+                    if (c.count > 799)
                     {
-
-
-                        if (c.count > 799)
-                        {
-                            //dont take item
-                            return false;
-                        }
-
-                        if (c.count + itemcount > 799)
-                        {
-                            //Dont take item
-                            return false;
-                        }
-
-
-                        c.count = c.count + itemcount;
-
-
-                        if (c.count <= 0)
-                        {
-                            c.count = 0;
-                            c.id = 0;
-
-                        }
-                    DiscordPart.SendSystemMessage($" Player {username.ToUpper()} Taked {itemid} {itemcount}x called by method {(new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name}");
-                        File.WriteAllText($"accounts/{username.ToUpper()}.json", JsonSerializer.Serialize(i));
-                        ClearEmptyInventoryTiles(username);
-                        return true;
+                        //dont take item
+                        return false;
                     }
-                    if (c.id == 0)
-                    {
-                        c.id = itemid;
-                        c.count = c.count + itemcount;
-                        if (c.count <= 0)
-                        {
-                            c.count = 0;
-                            c.id = 0;
 
-                        }
-                        File.WriteAllText($"accounts/{username.ToUpper()}.json", JsonSerializer.Serialize(i));
-                        ClearEmptyInventoryTiles(username);
+                    if (c.count + itemcount > 799)
+                    {
+                        //Dont take item
+                        return false;
+                    }
+
+
+                    c.count = c.count + itemcount;
+
+
+                    if (c.count <= 0)
+                    {
+                        c.count = 0;
+                        c.id = 0;
+
+                    }
+                    DiscordPart.SendSystemMessage($" Player {username.ToUpper()} Taked {itemid} {itemcount}x called by method {(new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name}");
+                    File.WriteAllText($"accounts/{username.ToUpper()}.json", JsonSerializer.Serialize(i));
+                    ClearEmptyInventoryTiles(username);
+                    return true;
+                }
+                if (c.id == 0)
+                {
+                    c.id = itemid;
+                    c.count = c.count + itemcount;
+                    if (c.count <= 0)
+                    {
+                        c.count = 0;
+                        c.id = 0;
+
+                    }
+                    File.WriteAllText($"accounts/{username.ToUpper()}.json", JsonSerializer.Serialize(i));
+                    ClearEmptyInventoryTiles(username);
                     DiscordPart.SendSystemMessage($"Player {username.ToUpper()} Taked {itemid} {itemcount}x called by method {(new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod().Name}");
 
                     return true;
-                    }
+                }
 
-                
+
             }
 
             i.inventory.Add(new InventoryTile() { id = itemid, count = itemcount });
@@ -467,18 +468,18 @@ namespace Bobcos_Server
                     }
 
 
-                   
+
                     return true;
                 }
                 if (c.id == 0)
                 {
-                    
+
                     return true;
                 }
 
             }
 
-          
+
             return true;
         }
 
@@ -487,9 +488,9 @@ namespace Bobcos_Server
             useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{username.ToUpper()}.json"));
             List<InventoryTile> NewTile = new List<InventoryTile>();
 
-            foreach(InventoryTile c in i.inventory)
+            foreach (InventoryTile c in i.inventory)
             {
-                if(c.count > 0)
+                if (c.count > 0)
                 {
                     NewTile.Add(c);
 
@@ -503,21 +504,21 @@ namespace Bobcos_Server
         static public void TryToReadWorldDataAndSendToClient(int _toclient, string worldname)
 
         {
-           
-                ServerSend.SendWorldDataFg(_toclient, ReadWorldFg(worldname.ToUpper()),"fg");
 
-                ServerSend.SendWorldDataFg(_toclient, ReadWorldBg(worldname.ToUpper()), "bg");
+            ServerSend.SendWorldDataFg(_toclient, ReadWorldFg(worldname.ToUpper()), "fg");
+
+            ServerSend.SendWorldDataFg(_toclient, ReadWorldBg(worldname.ToUpper()), "bg");
 
 
         }
 
-        static public void AddGems(string username,int gemamount)
+        static public void AddGems(string username, int gemamount)
         {
             useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{username.ToUpper()}.json"));
             i.cash = i.cash + gemamount;
             File.WriteAllText($"accounts/{username.ToUpper()}.json", JsonSerializer.Serialize(i));
         }
-        static public void SetGems(string username,int amount)
+        static public void SetGems(string username, int amount)
         {
             useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{username.ToUpper()}.json"));
             i.cash = amount;
@@ -534,10 +535,10 @@ namespace Bobcos_Server
         {
             if (File.Exists($"worlds/{worldname.ToUpper()}.json"))
             {
-                
+
 
                 return 1;
-                       }
+            }
             else
             {
 
@@ -666,13 +667,13 @@ namespace Bobcos_Server
 
                 for (int i = 2248; i <= 2400; i++)
                 {
-                    //newworldata.fg[i] = (short)72;
+                    newworldata.fg[i] = (short)72;
                     newworldata.bg[i] = (short)0;
 
                 }
                 for (int i = 2354; i <= 2399; i++)
                 {
-                    //newworldata.fg[i] = (short)72;
+                    newworldata.fg[i] = (short)72;
                     newworldata.bg[i] = (short)0;
 
                 }
@@ -680,28 +681,28 @@ namespace Bobcos_Server
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    //newworldata.fg[val] = (short)71;
+                    newworldata.fg[val] = (short)71;
                     newworldata.bg[val] = (short)0;
 
                 }
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    //newworldata.fg[val] = (short)70;
+                    newworldata.fg[val] = (short)70;
                     newworldata.bg[val] = (short)0;
 
                 }
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    //newworldata.fg[val] = (short)69;
+                    newworldata.fg[val] = (short)69;
                     newworldata.bg[val] = (short)0;
 
                 }
                 for (int i = 0; i < 16; i++)
                 {
                     int val = StonePicker.Next(2248, 2401);
-                    //newworldata.fg[val] = (short)73;
+                    newworldata.fg[val] = (short)73;
                     newworldata.bg[val] = (short)0;
 
                 }
@@ -735,7 +736,7 @@ namespace Bobcos_Server
         {
             worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
             return n.fg;
-           
+
         }
         static public short[] ReadWorldBg(string worldname)
         {
@@ -755,7 +756,7 @@ namespace Bobcos_Server
             int idofplayer = (int)dat[0];
             string worldname = (string)dat[1];
             bool issummonedbymod = (bool)dat[2];
-            if(Server.Clients[idofplayer].user.World != null)
+            if (Server.Clients[idofplayer].user.World != null)
             {
 
                 return;
@@ -763,7 +764,7 @@ namespace Bobcos_Server
 
 
 
-       if(CheckWorldFile(worldname.ToUpper()) == 0)
+            if (CheckWorldFile(worldname.ToUpper()) == 0)
             {
                 CreateWorld(worldname.ToUpper());
 
@@ -783,8 +784,8 @@ namespace Bobcos_Server
             useraccount acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[idofplayer].user.username.ToUpper()}.json"));
 
             bool canPass = false;
-            
-            if(acc.StaffLevel > 2)
+
+            if (acc.StaffLevel > 2)
             {
                 canPass = true;
             }
@@ -805,7 +806,7 @@ namespace Bobcos_Server
             {
                 if (!canPass)
                 {
-                    ServerSend.SendWarning(idofplayer,  "This world is banned for breaking game rules");
+                    ServerSend.SendWarning(idofplayer, "This world is banned for breaking game rules");
                     return;
                 }
 
@@ -815,18 +816,18 @@ namespace Bobcos_Server
 
             //Check for world ban 
 
-            if (GetBannedPlayers(worldname.ToUpper()).Contains(Server.Clients[idofplayer].user.username.ToUpper())) 
+            if (GetBannedPlayers(worldname.ToUpper()).Contains(Server.Clients[idofplayer].user.username.ToUpper()))
             {
 
-                if(!canPass)
+                if (!canPass)
                 {
-                    ServerSend.SendWarning(idofplayer,  "You got banned from world");
+                    ServerSend.SendWarning(idofplayer, "You got banned from world");
                     return;
                 }
 
 
             }
-           
+
 
             ServerSend.SendResult(idofplayer, 2, "Entered world successfully.");
 
@@ -839,7 +840,7 @@ namespace Bobcos_Server
             ServerSend.SendCash((int)idofplayer, Logic.GetGems(Server.Clients[(int)idofplayer].user.username.ToUpper()));
 
 
-            ServerSend.SendChat(idofplayer, "<color=yellow>In game rules</color>");
+            ServerSend.SendChat(idofplayer, "<color=green>In game rules</color>");
             ServerSend.SendChat(idofplayer, "-Swearing, being toxic, causing drama is not allowed.");
             ServerSend.SendChat(idofplayer, "-Scamming, Hosting Drop games, Casinos are illegal.");
             ServerSend.SendChat(idofplayer, "-Hacking, exploiting,auto-clicker,macro ,bots,any third party program, etc. is not allowed");
@@ -848,7 +849,7 @@ namespace Bobcos_Server
 
 
             if (!worlds.ContainsKey(worldname.ToUpper()))
-                {
+            {
                 ServerSend.SpawnPlayer((int)idofplayer, Server.Clients[(int)idofplayer].user.realusername, true, 0);
 
                 worlds[worldname.ToUpper()] = new World() { WorldName = worldname.ToUpper() };
@@ -871,7 +872,7 @@ namespace Bobcos_Server
                     worlds[worldname.ToUpper()].SendEnteredToEveryoneExpectClient(Server.Clients[(int)idofplayer].user.realusername, true, (int)idofplayer);
 
 
-                    ServerSend.SendChat((int)idofplayer, "Entered to <color=yellow>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
+                    ServerSend.SendChat((int)idofplayer, "Entered to <color=green>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
 
 
                     worlds[worldname.ToUpper()].SendPositionToEveryonexpectClient(Server.Clients[(int)idofplayer].user.xpos, Server.Clients[(int)idofplayer].user.ypos, (int)idofplayer, false);
@@ -887,7 +888,7 @@ namespace Bobcos_Server
 
 
 
-                    worlds[worldname.ToUpper()].SendEveryonesEnteredToPlayer((int)idofplayer);
+                worlds[worldname.ToUpper()].SendEveryonesEnteredToPlayer((int)idofplayer);
 
 
                 worlds[worldname.ToUpper()].SendPositionsOfOtherPlayers((int)idofplayer);
@@ -952,7 +953,7 @@ namespace Bobcos_Server
 
 
                 //Get player appreance and send it to everyone
-                 acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + Server.Clients[idofplayer].user.username.ToUpper() + ".json"));
+                acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + Server.Clients[idofplayer].user.username.ToUpper() + ".json"));
 
 
 
@@ -1031,7 +1032,7 @@ namespace Bobcos_Server
 
 
 
-                if(!Server.Clients[idofplayer].user.isInvisible)
+                if (!Server.Clients[idofplayer].user.isInvisible)
                 {
                     worlds[worldname.ToUpper()].SendEnteredToEveryoneExpectClient(Server.Clients[(int)idofplayer].user.realusername, true, (int)idofplayer);
 
@@ -1041,7 +1042,7 @@ namespace Bobcos_Server
                     worlds[worldname.ToUpper()].SendPositionToEveryonexpectClient(Server.Clients[(int)idofplayer].user.xpos, Server.Clients[(int)idofplayer].user.ypos, (int)idofplayer, false);
                 }
 
-               
+
 
 
 
@@ -1051,7 +1052,7 @@ namespace Bobcos_Server
                 worlds[worldname.ToUpper()].SendPositionsOfOtherPlayers((int)idofplayer);
 
 
-                
+
 
 
 
@@ -1062,7 +1063,7 @@ namespace Bobcos_Server
 
 
 
-                ServerSend.SendChat((int)idofplayer, "Entered to <color=yellow>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
+                ServerSend.SendChat((int)idofplayer, "Entered to <color=green>" + worldname + "</color>. Theres " + worlds[worldname.ToUpper()].Playersinworld.Count + " People here.");
 
 
 
@@ -1167,9 +1168,9 @@ namespace Bobcos_Server
 
 
         }
-           
-          
-        
+
+
+
 
 
         static public void WearItem(int plrid)
@@ -1181,13 +1182,14 @@ namespace Bobcos_Server
 
 
 
-            if(itemdata.items[item].itemtype == "SHIRT")
+            if (itemdata.items[item].itemtype == "SHIRT")
             {
-               if(acc.shirt == item)
+                if (acc.shirt == item)
                 {
                     //You are wearing item, unwear it set it to 0
                     acc.shirt = -1;
-                }else
+                }
+                else
                 {
                     //wear item
                     acc.shirt = item;
@@ -1277,15 +1279,15 @@ namespace Bobcos_Server
                 }
             }
 
-            worlds[Server.Clients[plrid].user.World.ToUpper()].SendApperanceToEveryoneExpectPlayer(acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, plrid,acc.hat,acc.handitem,acc.badge);
+            worlds[Server.Clients[plrid].user.World.ToUpper()].SendApperanceToEveryoneExpectPlayer(acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, plrid, acc.hat, acc.handitem, acc.badge);
 
-            ServerSend.SendPlayerApprence(plrid, acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, 0,acc.hat,acc.handitem,acc.badge);
+            ServerSend.SendPlayerApprence(plrid, acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, 0, acc.hat, acc.handitem, acc.badge);
             File.WriteAllText($"accounts/{Server.Clients[plrid].user.username.ToUpper().ToUpper()}.json", JsonSerializer.Serialize(acc));
 
         }
 
 
-        static  public void CheckIfStillOld(string worldname,int oldbreakid,int blockorder)
+        static public void CheckIfStillOld(string worldname, int oldbreakid, int blockorder)
         {
             //Wait for 5 seconds.
             Thread.Sleep(5000);
@@ -1303,11 +1305,11 @@ namespace Bobcos_Server
             {
 
             }
-            
+
 
         }
 
-        static public void SetWorldOwner(string worldname,string username)
+        static public void SetWorldOwner(string worldname, string username)
         {
             worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
             n.OwnerUserame = username;
@@ -1317,51 +1319,53 @@ namespace Bobcos_Server
 
         static public string GetWorldOwnerName(string worldname)
         {
-           
 
 
 
-                worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
-                return n.OwnerUserame;
-            
+
+            worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
+            return n.OwnerUserame;
+
         }
 
-        public static  List<string> GetWorldAccessedPlayers(string worldname)
+        public static List<string> GetWorldAccessedPlayers(string worldname)
         {
 
 
 
 
             worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
-           
-            
-            if(n.accessedPlayers != null)
+
+
+            if (n.accessedPlayers != null)
             {
                 return n.accessedPlayers;
 
-            }else
+            }
+            else
             {
                 n.accessedPlayers = new List<string>();
                 File.WriteAllText($"worlds/{worldname.ToUpper()}.json", JsonSerializer.Serialize(n));
 
                 return n.accessedPlayers;
-              
+
             }
 
 
         }
 
-        public static void AddPlayerAccess(string worldname,string username)
+        public static void AddPlayerAccess(string worldname, string username)
         {
             worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
 
             if (n.accessedPlayers != null)
             {
-                if(n.accessedPlayers.Contains(username.ToUpper()))
+                if (n.accessedPlayers.Contains(username.ToUpper()))
                 {
-                   // player is already accessed
+                    // player is already accessed
                     return;
-                }else
+                }
+                else
                 {
 
                     n.accessedPlayers.Add(username.ToUpper());
@@ -1380,7 +1384,7 @@ namespace Bobcos_Server
 
             }
         }
-     public   static void RemovePlayerAccess(string worldname, string username)
+        public static void RemovePlayerAccess(string worldname, string username)
         {
             worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
 
@@ -1395,13 +1399,13 @@ namespace Bobcos_Server
                 else
                 {
 
-//player is not accessed
+                    //player is not accessed
                 }
 
             }
             else
             {
-               //no one is accessed
+                //no one is accessed
 
 
             }
@@ -1492,17 +1496,17 @@ namespace Bobcos_Server
         }
 
 
-        static public void SendGlobalMessage(string Message,int clientid)
+        static public void SendGlobalMessage(string Message, int clientid)
         {
-            if(GetGems(Server.Clients[clientid].user.username.ToUpper()) > 74)
+            if (GetGems(Server.Clients[clientid].user.username.ToUpper()) > 74)
             {
                 Logic.AddGems(Server.Clients[clientid].user.username.ToUpper(), -75);
                 ServerSend.SendCash(clientid, Logic.GetGems(Server.Clients[clientid].user.username.ToUpper()));
-                foreach (KeyValuePair<int,Client> client in Server.Clients)
+                foreach (KeyValuePair<int, Client> client in Server.Clients)
                 {
 
-                    ServerSend.SendChat(client.Value.id, $"<color=grey>Global Message from</color><color=yellow> ({Server.Clients[clientid].user.username.ToUpper()})</color><color=grey> In</color> <color=cyan>[{Server.Clients[clientid].user.World.ToUpper()}]:</color> {Message}  ");
-                   
+                    ServerSend.SendChat(client.Value.id, $"<color=grey>Global Message from</color><color=green> ({Server.Clients[clientid].user.username.ToUpper()})</color><color=grey> In</color> <color=cyan>[{Server.Clients[clientid].user.World.ToUpper()}]:</color> {Message}  ");
+
                 }
             }
         }
@@ -1512,9 +1516,9 @@ namespace Bobcos_Server
     class World
     {
         public string WorldName;
-     public    List<int> Playersinworld = new List<int>();
+        public List<int> Playersinworld = new List<int>();
 
-        public  int[] HealthOfBlocks = new int[4704];
+        public int[] HealthOfBlocks = new int[4704];
 
 
 
@@ -1542,9 +1546,9 @@ namespace Bobcos_Server
 
 
 
-                SendPositionToEveryonexpectClient(Server.Clients[(int)playerid].user.xpos, Server.Clients[(int)playerid].user.ypos, (int)playerid, false);
+            SendPositionToEveryonexpectClient(Server.Clients[(int)playerid].user.xpos, Server.Clients[(int)playerid].user.ypos, (int)playerid, false);
 
-            
+
 
             SendEveryonesEnteredToPlayer((int)playerid);
 
@@ -1567,7 +1571,7 @@ namespace Bobcos_Server
 
 
 
-            ServerSend.SendChat((int)playerid, "Entered to <color=yellow>" + WorldName + "</color>. Theres " + Playersinworld.Count + " People here.");
+            ServerSend.SendChat((int)playerid, "Entered to <color=green>" + WorldName + "</color>. Theres " + Playersinworld.Count + " People here.");
 
 
 
@@ -1611,7 +1615,7 @@ namespace Bobcos_Server
 
 
 
-           
+
 
             //Get player appreance and send it to everyone
             useraccount acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + Server.Clients[(int)playerid].user.username.ToUpper() + ".json"));
@@ -1620,18 +1624,19 @@ namespace Bobcos_Server
 
 
 
-            SendApperanceToEveryoneExpectPlayer(acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, (int)playerid,acc.hat,acc.handitem,acc.badge);
+            SendApperanceToEveryoneExpectPlayer(acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, (int)playerid, acc.hat, acc.handitem, acc.badge);
 
 
-            ServerSend.SendPlayerApprence((int)playerid, acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, 0,acc.hat,acc.handitem, acc.badge);
+            ServerSend.SendPlayerApprence((int)playerid, acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, 0, acc.hat, acc.handitem, acc.badge);
 
             //Receive other players apperance
 
             foreach (int p in Playersinworld)
             {
 
-                if(p != (int)playerid)
-                {try
+                if (p != (int)playerid)
+                {
+                    try
                     {
                         acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + Server.Clients[p].user.username.ToUpper() + ".json"));
 
@@ -1642,7 +1647,7 @@ namespace Bobcos_Server
                     {
 
                     }
-                    
+
                 }
             }
 
@@ -1654,24 +1659,24 @@ namespace Bobcos_Server
         public void PosRefresher(object toClient)
         {
             Console.WriteLine("Pos refresher started.");
-            while(Playersinworld.Count > 0)
+            while (Playersinworld.Count > 0)
             {
-                if(Server.Clients[(int)toClient].user == null)
+                if (Server.Clients[(int)toClient].user == null)
                 {
                     return;
                 }
-                if(Server.Clients[(int)toClient].user.World != "")
+                if (Server.Clients[(int)toClient].user.World != "")
                 {
                     Thread.Sleep(680);
                     SendPositionsOfOtherPlayers((int)toClient);
 
                 }
 
-              
+
             }
 
         }
-       
+
 
         public void LeaveWorld(int playerid)
         {
@@ -1679,12 +1684,12 @@ namespace Bobcos_Server
             SendEnteredToEveryoneExpectClient("", false, playerid);
 
 
-            if(Server.Clients[playerid].user.Trade != null)
+            if (Server.Clients[playerid].user.Trade != null)
             {
                 Server.Clients[playerid].user.Trade.CancelTrade(playerid);
             }
 
-try
+            try
             {
                 SendMessageToEveryoneInWorld("(<color=blue>" + Server.Clients[playerid].user.realusername + "</color>) Left the world!");
                 Server.Clients[playerid].user.World = null;
@@ -1694,9 +1699,9 @@ try
             {
 
             }
-          
+
         }
-        
+
         public void SendMessageToEveryoneInWorld(string message)
         {
             try
@@ -1718,18 +1723,18 @@ try
         /// <summary>
         /// Sends player spawn or despawn to everyone
         /// </summary>
-        public void SendEnteredToEveryoneExpectClient(string username,bool spawnordespawn,int playerid)
+        public void SendEnteredToEveryoneExpectClient(string username, bool spawnordespawn, int playerid)
         {
 
-            if(Server.Clients[playerid].user == null)
+            if (Server.Clients[playerid].user == null)
             {
                 LeaveWorld(playerid);
                 Server.Clients[playerid].Disconnect();
                 return;
             }
-           useraccount acc2 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[playerid].user.username.ToUpper()}.json"));
+            useraccount acc2 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[playerid].user.username.ToUpper()}.json"));
 
-       
+
 
             foreach (int i in Playersinworld)
             {
@@ -1754,31 +1759,31 @@ try
 
                         ServerSend.SpawnPlayer(toclient, Server.Clients[i].user.realusername, true, i);
                     }
-                   
+
                 }
             }
         }
 
 
 
-        public void SendPositionToEveryonexpectClient(float x,float y,int id,bool isjumping)
+        public void SendPositionToEveryonexpectClient(float x, float y, int id, bool isjumping)
         {
             if (Server.Clients[id].user.isInvisible)
             {
                 return;
             }
 
-                foreach (int i in Playersinworld)
+            foreach (int i in Playersinworld)
             {
 
 
                 if (i != id)
-                    {
-                        ServerSend.SendPosition(i, id, x, y,isjumping);
+                {
+                    ServerSend.SendPosition(i, id, x, y, isjumping);
 
                 }
             }
-           
+
         }
 
         public void SendPositionsOfOtherPlayers(int targetid)
@@ -1787,7 +1792,8 @@ try
             foreach (int i in Playersinworld)
             {
                 if (i != targetid)
-                {try
+                {
+                    try
                     {
                         if (!Server.Clients[i].user.isInvisible)
                         {
@@ -1802,11 +1808,11 @@ try
             }
         }
 
-        public void SendBlockToEveryoneinworld(short sira,short itemid,string isbgorfg)
+        public void SendBlockToEveryoneinworld(short sira, short itemid, string isbgorfg)
         {
             foreach (int i in Playersinworld)
             {
-                ServerSend.SendBlockData(i, sira, itemid,isbgorfg);
+                ServerSend.SendBlockData(i, sira, itemid, isbgorfg);
             }
         }
         public void SendDrop()
@@ -1824,17 +1830,17 @@ try
             }
         }
 
-        public void SendBlockBreakToEveryoneInWorld(int order,byte animNum)
+        public void SendBlockBreakToEveryoneInWorld(int order, byte animNum)
         {
 
-            foreach(int i in Playersinworld)
+            foreach (int i in Playersinworld)
             {
                 ServerSend.SendBlockBrekingAnim(i, (short)order, animNum);
 
             }
         }
 
-        public void SendApperanceToEveryoneExpectPlayer(byte r,byte g,byte b, byte t, short shirt, short pant, short shoes, short backid,short headid,int playerid,short hatid,short handitem,byte badge)
+        public void SendApperanceToEveryoneExpectPlayer(byte r, byte g, byte b, byte t, short shirt, short pant, short shoes, short backid, short headid, int playerid, short hatid, short handitem, byte badge)
         {
             foreach (int i in Playersinworld)
             {
@@ -1843,7 +1849,7 @@ try
 
 
 
-                    ServerSend.SendPlayerApprence(i, r, g, b, t, shirt, pant, shoes, backid, headid, (short)playerid,hatid,handitem, badge);
+                    ServerSend.SendPlayerApprence(i, r, g, b, t, shirt, pant, shoes, backid, headid, (short)playerid, hatid, handitem, badge);
                 }
             }
         }
@@ -1861,7 +1867,7 @@ try
             }
         }
 
-        public void SendChattingBubbleToEveryone(int PlayerId,byte anim)
+        public void SendChattingBubbleToEveryone(int PlayerId, byte anim)
         {
 
             foreach (int i in Playersinworld)
@@ -1869,12 +1875,13 @@ try
                 if (i != PlayerId)
                 {
 
-                    ServerSend.SendBubble(i,PlayerId,anim);
+                    ServerSend.SendBubble(i, PlayerId, anim);
 
-                }else
+                }
+                else
                 {
                     ServerSend.SendBubble(PlayerId, 0, anim);
-                 
+
 
                 }
             }
@@ -1893,20 +1900,20 @@ try
                     {
 
                         ServerSend.SendAnim(i, 0, playerid);
-                        Console.WriteLine("punch work");
+                        
 
                     }
                 }
-            }catch
+            }
+            catch
             {
                 SendPunch(playerid);
-                Console.WriteLine("punch work");
             }
-            
+
         }
         public void SendWalk(int playerid)
         {
-            ServerSend.SendAnim(playerid,   1, 0);
+            ServerSend.SendAnim(playerid, 1, 0);
             try
             {
 
@@ -1917,7 +1924,6 @@ try
 
                         ServerSend.SendAnim(i, 1, playerid);
 
-                        Console.WriteLine("Walk work");
                     }
                 }
             }
@@ -1941,7 +1947,7 @@ try
 
                         ServerSend.SendAnim(i, 2, playerid);
 
-                        Console.WriteLine("SendTalk work");
+                  
 
                     }
                 }
@@ -1949,7 +1955,7 @@ try
             catch
             {
                 SendTalk(playerid);
-                Console.WriteLine("SendTalk work");
+
             }
 
         }

@@ -193,7 +193,7 @@ public class UIManager : MonoBehaviour
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(10);
         NewWarningUI.SetActive(false);
 
     }

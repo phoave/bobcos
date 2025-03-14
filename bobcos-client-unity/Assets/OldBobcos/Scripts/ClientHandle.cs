@@ -518,14 +518,17 @@ public   class ClientHandle
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Punch());
             
+
         }
+        
         if (animId == 1)
         {
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().playWalkingAnim());
-     
+            
 
         }
+        
         if (animId == 2)
         {
             //punch
@@ -635,3 +638,4 @@ public   class ClientHandle
 
     }
 }
+

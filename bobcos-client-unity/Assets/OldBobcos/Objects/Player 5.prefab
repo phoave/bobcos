@@ -463,23 +463,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   AnimObj: {fileID: 0}
   MainSprite: {fileID: 0}
-  Empty: {fileID: 0}
-  shirtId: 0
-  PantId: 0
-  ShoeId: 0
-  HairId: 0
-  HatId: 0
-  BackId: 0
-  HandId: 0
-  Shirt: {fileID: 0}
-  Pant: {fileID: 0}
-  Shoe: {fileID: 0}
-  Hair: {fileID: 0}
-  Hat: {fileID: 0}
-  Back: {fileID: 0}
-  Hand: {fileID: 0}
-  animations: []
-  iswalking: 0
 --- !u!1 &2406973466609225652
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +488,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2406973466609225652}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.009, y: 0.036, z: 0}
+  m_LocalPosition: {x: -0.009, y: 0.036, z: -0.18937397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5439321668760346044}
@@ -530,23 +513,6 @@ MonoBehaviour:
   Player: {fileID: 8816089522779364839}
   AnimObj: {fileID: 2406973466609225652}
   MainSprite: {fileID: 4773669206270455441}
-  Empty: {fileID: 0}
-  shirtId: 0
-  PantId: 0
-  ShoeId: 0
-  HairId: 0
-  HatId: 0
-  BackId: 0
-  HandId: 0
-  Shirt: {fileID: 0}
-  Pant: {fileID: 0}
-  Shoe: {fileID: 0}
-  Hair: {fileID: 0}
-  Hat: {fileID: 0}
-  Back: {fileID: 0}
-  Hand: {fileID: 0}
-  animations: []
-  iswalking: 0
 --- !u!1 &2626629893124670938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,23 +1633,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   AnimObj: {fileID: 0}
   MainSprite: {fileID: 0}
-  Empty: {fileID: 0}
-  shirtId: 0
-  PantId: 0
-  ShoeId: 0
-  HairId: 0
-  HatId: 0
-  BackId: 0
-  HandId: 0
-  Shirt: {fileID: 0}
-  Pant: {fileID: 0}
-  Shoe: {fileID: 0}
-  Hair: {fileID: 0}
-  Hat: {fileID: 0}
-  Back: {fileID: 0}
-  Hand: {fileID: 0}
-  animations: []
-  iswalking: 0
 --- !u!1 &8493501805740700319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,23 +1732,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   AnimObj: {fileID: 0}
   MainSprite: {fileID: 0}
-  Empty: {fileID: 0}
-  shirtId: 0
-  PantId: 0
-  ShoeId: 0
-  HairId: 0
-  HatId: 0
-  BackId: 0
-  HandId: 0
-  Shirt: {fileID: 0}
-  Pant: {fileID: 0}
-  Shoe: {fileID: 0}
-  Hair: {fileID: 0}
-  Hat: {fileID: 0}
-  Back: {fileID: 0}
-  Hand: {fileID: 0}
-  animations: []
-  iswalking: 0
 --- !u!1 &8687374126840079793
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIAnim : MonoBehaviour
 {
-    /*public Vector3 oldscale;
+    public Vector3 oldscale;
     RectTransform rect;
     void Start()
     {
@@ -37,5 +37,5 @@ public class UIAnim : MonoBehaviour
                 rect.localScale = new Vector3(rect.localScale.x,oldscale.y, 1);
             }
         }
-    }*/
+    }
 }

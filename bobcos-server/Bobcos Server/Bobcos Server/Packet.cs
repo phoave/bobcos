@@ -17,19 +17,25 @@ namespace Bobcos_Server
         worlddata = 8,
         inventory = 9,
         block = 10,
-     breakinganim = 11,
-     SendCash = 12,
-     ItemInfo = 13,
+        breakinganim = 11,
+        SendCash = 12,
+        ItemInfo = 13,
         PlayerApperance = 14,
         PlayerChatBubble = 15,
         ShopData = 16,
-            Anim  = 17,
-            Trade = 18,
+        Anim = 17,
+        Trade = 18,
         DropDatas = 19,
         ClientInfo = 20,
         Bubble = 21,
-        
+
         WarningMessage = 22
+
+
+
+
+
+
 
 
 
@@ -45,7 +51,7 @@ namespace Bobcos_Server
     {
         welcomeReceived = 1,
         Vertificate = 2,
-                AccountLoginRegisterandWorldEnter = 3,
+        AccountLoginRegisterandWorldEnter = 3,
         Chat = 4,
         PositionFromClient = 5,
         InventoryTileSelect = 6,
@@ -212,17 +218,17 @@ namespace Bobcos_Server
         public void Write(string _value)
         {
 
-            if(_value == null)
+            if (_value == null)
             {
 
                 _value = "PACKET_STRING_WRITE_ERROR";
             }
-                Write(_value.Length); // Add the length of the string to the packet
-          
-            
-                buffer.AddRange(Encoding.ASCII.GetBytes(_value)); // Add the string itself
+            Write(_value.Length); // Add the length of the string to the packet
 
-           
+
+            buffer.AddRange(Encoding.ASCII.GetBytes(_value)); // Add the string itself
+
+
         }
         #endregion
 

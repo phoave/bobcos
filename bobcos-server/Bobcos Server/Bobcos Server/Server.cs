@@ -16,9 +16,9 @@ namespace GameServer
         public delegate void PacketHandler(int _fromClient, Packet _packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
 
-       
 
-        public  static EventBasedNetListener Netlistener;
+
+        public static EventBasedNetListener Netlistener;
         public static NetManager server;
 
 
@@ -52,7 +52,7 @@ namespace GameServer
             Console.WriteLine($"Peer disconnected! {peer.Id}");
 
 
-            if(peer.Id == 0)
+            if (peer.Id == 0)
             {
                 EventBasedNetListener clientls = new EventBasedNetListener();
                 NetManager client = new NetManager(clientls);
@@ -93,16 +93,17 @@ namespace GameServer
             request.Accept();
         }
 
-       
 
-        public static void SendUDPData(NetPeer peer, Packet _packet,DeliveryMethod dMethod)
-        {try
+
+        public static void SendUDPData(NetPeer peer, Packet _packet, DeliveryMethod dMethod)
+        {
+            try
             {
-                if(peer == null)
+                if (peer == null)
                 {
                     return;
                 }
-                if(_packet == null)
+                if (_packet == null)
                 {
                     return;
                 }
