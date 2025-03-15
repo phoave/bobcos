@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bobcos Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+21bc1451931239a25d6e9b52d1ff303c3f27150f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d406b05db0b513c5f398fadce0ecef67f6a4669")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bobcos Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bobcos Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
