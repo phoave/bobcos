@@ -13,7 +13,7 @@ namespace Bobcos_Server
 
         public static void Initiliaze()
         {
-            recipe[0] = new CraftRecipe() { constantResultCount = 50, CraftingTime = 60, item1id = 3, item2id = 3, item1idMinCount = 25, item2idMinCount = 0, ItemResult = 3, recipeid = 0 };
+            recipe[0] = new CraftRecipe() { constantResultCount = 50, CraftingTime = 60, item1id = 3, item2id = 3, item1idMinCount = 25, item2idMinCount = 0, ItemResult = 12, recipeid = 0 };
             recipe[1] = new CraftRecipe() { constantResultCount = 1, CraftingTime = 240, item1id = 37, item2id = 12, item1idMinCount = 5, item2idMinCount = 2, ItemResult = 31, recipeid = 1 };
             recipe[2] = new CraftRecipe() { constantResultCount = 10, CraftingTime = 800, item1id = 65, item2id = 12, item1idMinCount = 10, item2idMinCount = 20, ItemResult = 47, recipeid = 2 };
             recipe[3] = new CraftRecipe() { constantResultCount = 20, CraftingTime = 600, item1id = 71, item2id = 12, item1idMinCount = 10, item2idMinCount = 20, ItemResult = 48, recipeid = 3 };

@@ -1002,7 +1002,8 @@ namespace Bobcos_Server
                             }
                             else
                             {
-                                //player doesnt have access   ServerSend.SendChat(_Fromcliemt, "<color=red>You dont have access in this world!</color>");
+                                //player doesnt have access
+                                ServerSend.SendChat(_Fromcliemt, "<color=red>You dont have access in this world!</color>");
 
 
 

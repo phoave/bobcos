@@ -1505,7 +1505,7 @@ namespace Bobcos_Server
                 foreach (KeyValuePair<int, Client> client in Server.Clients)
                 {
 
-                    ServerSend.SendChat(client.Value.id, $"<color=grey>Global Message from</color><color=green> ({Server.Clients[clientid].user.username.ToUpper()})</color><color=grey> In</color> <color=cyan>[{Server.Clients[clientid].user.World.ToUpper()}]:</color> {Message}  ");
+                    ServerSend.SendChat(client.Value.id, $"<color=white>Global Message from</color><color=green> ({Server.Clients[clientid].user.username.ToUpper()})</color><color=white> In</color> <color=cyan>[{Server.Clients[clientid].user.World.ToUpper()}]:</color> {Message}  ");
 
                 }
             }

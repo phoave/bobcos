@@ -439,7 +439,7 @@ namespace Bobcos_Server
 
 
 
-                    string texttosend = $"<color=yellow>Game status</color> {Environment.NewLine} <color=grey>{totalPlayersOnline} Players online</color> {Environment.NewLine} <color=grey>Time: {DateTime.Now.ToString()} GMT+1</color>";
+                    string texttosend = $"<color=yellow>Game status</color> {Environment.NewLine} <color=white>{totalPlayersOnline} Players online</color> {Environment.NewLine} <color=white>Time: {DateTime.Now.ToString()} GMT+1</color>";
 
                     ServerSend.SendChat(clientId, texttosend);
                     useraccount acc32 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[clientId].user.username.ToUpper()}.json"));
