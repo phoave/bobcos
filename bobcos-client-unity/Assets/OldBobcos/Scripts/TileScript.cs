@@ -8,6 +8,7 @@ public class TileScript : MonoBehaviour
     public int siraid;
     public bool isdamage;
     public bool iswater;
+    public bool isPlatform; // New platform property
     public GameObject ShadowObj;
     public GameObject LightObj;
     bool Animate;
@@ -17,7 +18,6 @@ public class TileScript : MonoBehaviour
     {
         GameManager.instance.BlockPos[(int)transform.position.x, (int)transform.position.y] = _id;
         id = _id;
-       
 
         foreach (Block i in ItemManager.instance.BlockItems)
         {
@@ -25,8 +25,9 @@ public class TileScript : MonoBehaviour
             {
                 isdamage = i.isdamageBlock;
                 iswater = i.IsWater;
-            
-
+                isPlatform = i.isPlatform; // Check if tile is a platform
+                
+                // Handle sprite rendering based on tile type
                 if (iswater)
                 {
                     GetComponent<SpriteRenderer>().sortingOrder = 300;
@@ -37,6 +38,7 @@ public class TileScript : MonoBehaviour
                 }
 
                 GetComponent<SpriteRenderer>().sprite = i.BlockTexture;
+
                 if (id == 3)
                 {
                     try
@@ -77,47 +79,15 @@ public class TileScript : MonoBehaviour
                     }
                 }
 
-                if (i.iscollider)
+                if (i.iscollider && !isPlatform) // Only set solid collision for non-platform tiles
                 {
                     Collide = true;
                     GetComponent<Collider2D>().isTrigger = false;
-                    try
-                    {
-                        if (fg1bg0 == 1)
-                        {
-                            int leftid = GameManager.instance.BlockPos[(int)transform.position.x + 1, (int)transform.position.y];
-                            int downid = GameManager.instance.BlockPos[(int)transform.position.x, (int)transform.position.y - 1];
-                            int rightid = GameManager.instance.BlockPos[(int)transform.position.x - 1, (int)transform.position.y];
-                            int updownid = GameManager.instance.BlockPos[(int)transform.position.x, (int)transform.position.y + 1];
-
-                            if (leftid == 0 || downid == 0 || rightid == 0 || updownid == 0)
-                            {
-                                ShadowObj = Instantiate(GameManager.instance.ShadowObject);
-                                ShadowObj.transform.position = transform.position;
-                            }
-                        }
-                        else if (fg1bg0 == 0)
-                        {
-                            int leftid = GameManager.instance.BlockPosFG[(int)transform.position.x + 1, (int)transform.position.y];
-                            int downid = GameManager.instance.BlockPosFG[(int)transform.position.x, (int)transform.position.y - 1];
-                            int rightid = GameManager.instance.BlockPosFG[(int)transform.position.x - 1, (int)transform.position.y];
-                            int updownid = GameManager.instance.BlockPosFG[(int)transform.position.x, (int)transform.position.y + 1];
-
-                            if (leftid == 0 || downid == 0 || rightid == 0)
-                            {
-                                ShadowObj = Instantiate(GameManager.instance.ShadowObject);
-                                ShadowObj.transform.position = transform.position;
-                            }
-                        }
-                    }
-                    catch
-                    {
-                    }
                 }
                 else
                 {
                     Collide = false;
-                    GetComponent<Collider2D>().isTrigger = true;
+                    GetComponent<Collider2D>().isTrigger = true; // Set trigger for platforms so player can jump through
                     if (ShadowObj != null)
                     {
                         Destroy(ShadowObj);
@@ -170,7 +140,7 @@ public class TileScript : MonoBehaviour
         siraid = _Sira;
     }
 
-   private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isdamage)
         {
@@ -183,7 +153,5 @@ public class TileScript : MonoBehaviour
             PlayerManager.instance.Players[0].GetComponent<Player>().rb.AddForce(new Vector3(PlayerManager.instance.Players[0].GetComponent<Player>().rb.velocity.x + random1, 150));
             PlayerManager.instance.Players[0].GetComponent<Player>().Hurt();
         }
-
     }
-
 }

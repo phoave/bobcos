@@ -34,6 +34,7 @@ public class Block
     public Sprite BlockTexture;
     public bool isdamageBlock = false;
     public bool IsWater = false;
+    public bool isPlatform = false;
     public bool OrangeLight = false;
     public bool SpotLight = false;
     public Sprite[] Animations;

@@ -8,6 +8,6 @@ namespace Bobcos_Server
     {
       public const  int TICKRATE = 30;
        public const int MS_PER_TICK = 1000 / TICKRATE;
-        public const string version = "0.0.3";
+        public const string version = "0.1";
     }
 }
