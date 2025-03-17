@@ -1096,20 +1096,27 @@ namespace Bobcos_Server
 
                                     if (itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick != null)
                                     {
-                                        int [] itemToGive = itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick.itemToGive;
+                                        int[] itemToGive = itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick.itemToGive;
 
-                                        int  itemCount = itemdata.items[itemToGive[0]].RandomPick.Pick();
-                                        if (itemCount != 0)
+                                        if (itemToGive.Length > 0)
                                         {
+                                            int selectedItem = itemToGive[0]; // Default to first item
+                                            if (itemToGive.Length > 1) // Only pick randomly if there are multiple options
+                                            {
+                                                selectedItem = itemToGive[new Random().Next(itemToGive.Length)];
+                                            }
 
+                                            int itemCount = itemdata.items[selectedItem].RandomPick.Pick();
 
-                                            int xpos = WorldDataConverter.ConvertComplexidtopos(sira)[0];
-                                            int ypos = WorldDataConverter.ConvertComplexidtopos(sira)[1];
+                                            if (itemCount > 0)
+                                            {
+                                                int xpos = WorldDataConverter.ConvertComplexidtopos(sira)[0];
+                                                int ypos = WorldDataConverter.ConvertComplexidtopos(sira)[1];
 
-                                            DroppingSystem.DropItem(worldname, itemToGive[0], itemCount, xpos, ypos + 0.65f, 0);
+                                                DroppingSystem.DropItem(worldname, selectedItem, itemCount, xpos, ypos + 0.65f, 0);
+                                            }
                                         }
                                     }
-
                                 }
                                 catch
                                 {
@@ -1220,23 +1227,27 @@ namespace Bobcos_Server
                                 string username = Server.Clients[_Fromcliemt].user.username.ToUpper();
                                 if (itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick != null)
                                 {
-                                    int [] itemToGive = itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick.itemToGive;
+                                    int[] itemToGive = itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick.itemToGive;
 
-                                    int itemCount = itemdata.items[itemToGive[0]].RandomPick.Pick();
-
-
-                                    if (itemCount != 0)
+                                    if (itemToGive.Length > 0)
                                     {
+                                        int selectedItem = itemToGive[0]; // Default to first item
+                                        if (itemToGive.Length > 1) // Only pick randomly if there are multiple options
+                                        {
+                                            selectedItem = itemToGive[new Random().Next(itemToGive.Length)];
+                                        }
 
+                                        int itemCount = itemdata.items[selectedItem].RandomPick.Pick();
 
+                                        if (itemCount > 0)
+                                        {
+                                            int xpos = WorldDataConverter.ConvertComplexidtopos(sira)[0];
+                                            int ypos = WorldDataConverter.ConvertComplexidtopos(sira)[1];
 
-                                        int xpos = WorldDataConverter.ConvertComplexidtopos(sira)[0];
-                                        int ypos = WorldDataConverter.ConvertComplexidtopos(sira)[1];
-
-                                        DroppingSystem.DropItem(worldname, itemToGive[0], itemCount, xpos, ypos + 0.65f, 0);
+                                            DroppingSystem.DropItem(worldname, selectedItem, itemCount, xpos, ypos + 0.65f, 0);
+                                        }
                                     }
-                                }
-
+                               }
                             }
                             catch
                             {
