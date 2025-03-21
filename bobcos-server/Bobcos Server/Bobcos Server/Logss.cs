@@ -8,7 +8,7 @@ using System.IO;
 namespace Bobcos_Server
 {
     
-    class Class1
+    class Logss
     {
 
 

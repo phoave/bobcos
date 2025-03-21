@@ -33,6 +33,8 @@ public class FisherBob : MonoBehaviour
         ClientSend.SendAmount(93, short.Parse(field1.text));
         SetInactive();
     }
+    
+   
     public void SendAmountDataToServer2()
     {
         ClientSend.SendAmount(94, short.Parse(field2.text));
@@ -45,6 +47,5 @@ public class FisherBob : MonoBehaviour
         SetInactive();
 
     }
-
 
 }

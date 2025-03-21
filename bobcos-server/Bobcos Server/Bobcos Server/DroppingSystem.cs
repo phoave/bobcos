@@ -113,8 +113,8 @@ class DroppingSystem
                     Logic.worlds[Worldname.ToUpper()].SendDrop();
 
 
-                   Class1.WorldLog($"Player {Server.Clients[clientid].user.username} Taked item: {itemdata.items[i.itemid].itemname} {i.itemcount}x ", Worldname);
-                    Class1.UserLog($"Player {Server.Clients[clientid].user.username} in world {Server.Clients[clientid].user.World} Taked: {itemdata.items[i.itemid].itemname} {i.itemcount}x", Server.Clients[clientid].user.username);
+                   Logss.WorldLog   ($"Player {Server.Clients[clientid].user.username} Taked item: {itemdata.items[i.itemid].itemname} {i.itemcount}x ", Worldname);
+                    Logss.UserLog($"Player {Server.Clients[clientid].user.username} in world {Server.Clients[clientid].user.World} Taked: {itemdata.items[i.itemid].itemname} {i.itemcount}x", Server.Clients[clientid].user.username);
                     return;
                     }
                     b++;
