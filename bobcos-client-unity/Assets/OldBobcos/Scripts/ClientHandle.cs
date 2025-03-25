@@ -513,29 +513,26 @@ public   class ClientHandle
         byte animId = _Packet.ReadByte();
         int PlrId = _Packet.ReadInt();
 
-      /*  if (animId == 0)
+        if (animId == 0)
         {
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Punch());
             
-
         }
-        
         if (animId == 1)
         {
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().playWalkingAnim());
-            
+     
 
         }
-        
         if (animId == 2)
         {
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Talk());
             
 
-        }*/
+        }
 
 
     }
@@ -619,31 +616,25 @@ public   class ClientHandle
     }
 
     public static void PlayerApperance(Packet packet)
-    {
-        // Read the Color data (RGBA)
-        Color32 color = new Color32(packet.ReadByte(), packet.ReadByte(), packet.ReadByte(), packet.ReadByte());
+        {
+            // Read the Color data (RGBA)
+            Color32 color = new Color32(packet.ReadByte(), packet.ReadByte(), packet.ReadByte(), packet.ReadByte());
 
-        // Read the appearance-related IDs
-       short shirtId = packet.ReadShort();
-        short pantId = packet.ReadShort();
-        short shoeId = packet.ReadShort();
-        short backId = packet.ReadShort();
-        short hairId = packet.ReadShort();
-        short hatId = packet.ReadShort();
-        short playerId = packet.ReadShort();
-        short handItemId = packet.ReadShort();
-        byte badgeId = packet.ReadByte();
+            // Read the appearance-related IDs
+        short shirtId = packet.ReadShort();
+            short pantId = packet.ReadShort();
+            short shoeId = packet.ReadShort();
+            short backId = packet.ReadShort();
+            short hairId = packet.ReadShort();
+            short hatId = packet.ReadShort();
+            short playerId = packet.ReadShort();
+            short handItemId = packet.ReadShort();
+            byte badgeId = packet.ReadByte();
 
-        // Log received data for debugging
-        Debug.Log($"Appearance data received for player {playerId}: " +
-                $"Color: {color}, Shirt ID: {shirtId}, Pant ID: {pantId}, " +
-                $"Shoe ID: {shoeId}, Back ID: {backId}, Hair ID: {hairId}, " +
-                $"Hat ID: {hatId}, Hand Item ID: {handItemId}, Badge ID: {badgeId}");
+            // Log received data for debugging
 
-        // Apply the appearance data to the corresponding player
-        PlayerManager.instance.Players[playerId].GetComponentInChildren<PlayerApperance>()
-            .UpdatePlayerAppearance(color, shirtId, pantId, shoeId, backId, hairId, hatId, handItemId, badgeId);
-    }
-
+            // Apply the appearance data to the corresponding player
+            PlayerManager.instance.Players[playerId].GetComponentInChildren<PlayerApperance>()
+                .UpdatePlayerAppearance(color, shirtId, pantId, shoeId, backId, hairId, hatId, handItemId, badgeId);
+        }
 }
-

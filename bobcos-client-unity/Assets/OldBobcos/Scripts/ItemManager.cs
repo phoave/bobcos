@@ -37,6 +37,7 @@ public class Block
     public bool isPlatform = false;
     public bool OrangeLight = false;
     public bool SpotLight = false;
+    public bool iswrench = false;
     public Sprite[] Animations;
 
 }

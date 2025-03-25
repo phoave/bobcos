@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public Slider Grafic;
     
 
-    public GameObject ShadowObject,OrangeLightObject;
+    public GameObject ShadowObject,OrangeLightObject, WrenchPrefab;
 
     public Sprite Day, Night;
     public Light2D Sun;

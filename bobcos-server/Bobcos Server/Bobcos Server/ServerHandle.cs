@@ -13,23 +13,22 @@ namespace Bobcos_Server
 {
     class ServerHandle
     {
-        public static void WelcomeReceived(int _fromclient, Packet _packet)
+        public static void WelcomeReceived(int _fromclient,Packet _packet)
         {
             string i = _packet.ReadString();
 
-
-            if (i == "S")
+           
+           if (i == "S")
             {
-                if (Server.Clients[_fromclient].user.ServerHelloSendedToClient)
+               if(Server.Clients[_fromclient].user.ServerHelloSendedToClient)
                 {
                     Server.Clients[_fromclient].user.ServerHelloReceivedFromClient = true;
-                }
-                else
+                }else
                 {
                 }
+            
 
-
-
+           
             }
 
         }
@@ -40,7 +39,7 @@ namespace Bobcos_Server
             string Country = _packet.ReadString();
             string Version = _packet.ReadString();
             string HWID = _packet.ReadString();
-            if (Version != Constants.version)
+            if(Version != Constants.version)
             {
                 //Disconnect
 
@@ -48,7 +47,7 @@ namespace Bobcos_Server
                 Server.Clients[_Fromcliemt].Disconnect();
                 return;
             }
-            if (_Fromcliemt == 0)
+            if(_Fromcliemt == 0)
             {
                 Server.Clients[_Fromcliemt].Disconnect();
                 EventBasedNetListener clientls = new EventBasedNetListener();
@@ -56,16 +55,16 @@ namespace Bobcos_Server
                 client.Start();
                 client.Connect("127.0.0.1", Server.Port, "KEYSERVER22");
             }
-
+            
             Server.Clients[_Fromcliemt].user = new User() { id = _Fromcliemt };
             Server.Clients[_Fromcliemt].user.hwid = HWID;
             Server.Clients[_Fromcliemt].user.ip = Server.server.GetPeerById(_Fromcliemt).EndPoint.Address.ToString();
-            Server.Clients[_Fromcliemt].user.PassedVertifaction = true;
+           Server.Clients[_Fromcliemt].user.PassedVertifaction = true;
             Server.Clients[_Fromcliemt].user.PlayerSystemLaunguageCountry = Country;
             //Send information to client to use UDP connection
 
             ServerSend.SendClientInfo(_Fromcliemt);
-
+            
 
         }
 
@@ -85,7 +84,7 @@ namespace Bobcos_Server
 
             //check
 
-
+            
 
 
 
@@ -95,9 +94,9 @@ namespace Bobcos_Server
 
 
             string accountname;
-            string password;
-            string email;
-            string worldname;
+                string password;
+                string email;
+                string worldname;
 
             byte selection = _packet.ReadByte();
 
@@ -107,11 +106,11 @@ namespace Bobcos_Server
                 case 1:
                     //login
                     accountname = _packet.ReadString();
-                    password = _packet.ReadString();
+                     password = _packet.ReadString();
 
 
 
-                    char[] AllowedCharacters = new char[] { 'İ', 'W', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'Y', 'Z', 'Q', 'X', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+                    char[] AllowedCharacters = new char[] {'İ','W', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'V', 'Y', 'Z', 'Q', 'X', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 
 
@@ -129,18 +128,17 @@ namespace Bobcos_Server
 
 
 
-                    int b = Logic.TryToLogin(accountname, password);
+                    int b =   Logic.TryToLogin(accountname, password);
 
-                    if (b == 0)
+                    if(b == 0)
                     {
-                        ServerSend.SendWarning(_Fromcliemt, "<color=red>Wrong password!</color>");
-                    }
-                    else if (b == 1)
+                        ServerSend.SendWarning(_Fromcliemt,  "<color=red>Wrong password!</color>");
+                    }else if(b == 1)
                     {
                         //check account ban
                         useraccount account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + accountname.ToUpper() + ".json"));
 
-                        if (DateTime.Now < account.BanExpireTime)
+                        if(DateTime.Now < account.BanExpireTime)
                         {
                             ServerSend.SendWarning(_Fromcliemt, $"<color=red>Account is banned. Your ban will expire at {account.BanExpireTime}. Ban Reason: {account.BanReason}</color>");
 
@@ -170,9 +168,9 @@ namespace Bobcos_Server
 
                         ServerSend.SendCash(_Fromcliemt, Logic.GetGems(Server.Clients[_Fromcliemt].user.username.ToUpper()));
                     }
-                    else if (b == 2)
+                    else if(b == 2)
                     {
-                        ServerSend.SendWarning(_Fromcliemt, "<color=yellow>This account doesnt exist, create it now!</color>");
+                        ServerSend.SendWarning(_Fromcliemt,  "<color=yellow>This account doesnt exist, create it now!</color>");
 
                     }
                     else if (b == 3)
@@ -185,11 +183,11 @@ namespace Bobcos_Server
                     break;
                 case 2:
                     //Register
-                    accountname = _packet.ReadString();
+                     accountname = _packet.ReadString();
 
-                    if (accountname.Length > 32)
+                    if(accountname.Length > 32)
                     {
-                        ServerSend.SendWarning(_Fromcliemt, "<color=red>username cant be longer than 32 chartacters!</color>");
+                        ServerSend.SendWarning(_Fromcliemt,  "<color=red>username cant be longer than 32 chartacters!</color>");
 
                         return;
                     }
@@ -202,7 +200,7 @@ namespace Bobcos_Server
                         if (!AllowedCharacters2.Contains(cha))
                         {
                             // contains bad string
-                            ServerSend.SendWarning(_Fromcliemt, "<color=red>Only use A-Z 0-9 characters</color>");
+                            ServerSend.SendWarning(_Fromcliemt,  "<color=red>Only use A-Z 0-9 characters</color>");
                             ServerSend.SendLoading(_Fromcliemt, 0, "Account.");
 
                             return;
@@ -212,20 +210,20 @@ namespace Bobcos_Server
 
                     password = _packet.ReadString();
                     email = _packet.ReadString();
-                    int c = Logic.TryToCreateAccount(accountname, password, email);
+                    int c = Logic.TryToCreateAccount(accountname,password,email);
                     if (c == 1)
                     {
-                        ServerSend.SendWarning(_Fromcliemt, "<color=green>Account created!</color>");
+                        ServerSend.SendWarning(_Fromcliemt,  "<color=green>Account created!</color>");
                     }
                     else if (c == 2)
                     {
 
-                        ServerSend.SendWarning(_Fromcliemt, "<color=red>This account already exists.!</color>");
+                        ServerSend.SendWarning(_Fromcliemt,  "<color=red>This account already exists.!</color>");
 
                     }
                     else if (c == 3)
                     {
-                        ServerSend.SendWarning(_Fromcliemt, "<color=red>Password or username cant be shorter than 3 chartacters!</color>");
+                        ServerSend.SendWarning(_Fromcliemt,  "<color=red>Password or username cant be shorter than 3 chartacters!</color>");
 
                     }
                     ServerSend.SendLoading(_Fromcliemt, 0, "Account.");
@@ -242,20 +240,18 @@ namespace Bobcos_Server
 
                     foreach (char cha in worldname)
                     {
-                        if (!AllowedCharacters3.Contains(cha))
+                        if (!AllowedCharacters3.Contains(cha) )
                         {
                             // contains bad string
                             ServerSend.SendWarning(_Fromcliemt, "<color=red>Only use A-Z 0-9 characters</color>");
 
                             return;
-                        }
-                        else
+                        }else
                         {
-                            if (cha == 'i')
+                            if(cha == 'i')
                             {
                                 newworldname = newworldname + "I";
-                            }
-                            else
+                            }else
                             {
                                 newworldname = newworldname + cha;
 
@@ -263,7 +259,7 @@ namespace Bobcos_Server
                         }
 
                     }
-                    if (newworldname == "")
+                    if(newworldname == "")
                     {
                         return;
                     }
@@ -284,7 +280,7 @@ namespace Bobcos_Server
 
             }
 
-
+           
         }
 
         public static void FisherBobAmountDataReceived(int _fromClient, Packet _packet)
@@ -297,16 +293,16 @@ namespace Bobcos_Server
 
 
 
-            if (Amount <= 0)
+            if(Amount <= 0)
             {
                 return;
             }
-            if (itemdata.items[FishId].itemtype != "FISH")
+            if(itemdata.items[FishId].itemtype != "FISH")
             {
                 return;
             }
 
-            if (Logic.CheckItemInInventory(Server.Clients[_fromClient].user.username, FishId, Amount))
+           if( Logic.CheckItemInInventory(Server.Clients[_fromClient].user.username, FishId, Amount))
             {
                 Logic.AddItemToInventory(Server.Clients[_fromClient].user.username, FishId, -Amount);
                 Logic.GetInventoryAndSend(_fromClient, Server.Clients[_fromClient].user.username);
@@ -315,7 +311,7 @@ namespace Bobcos_Server
                 ServerSend.SendCash(_fromClient, Logic.GetGems(Server.Clients[_fromClient].user.username));
             }
             else
-            {
+                {
                 ServerSend.SendWarning(_fromClient, "<color=red>Error: You dont have enough item</color>");
 
             }
@@ -328,7 +324,7 @@ namespace Bobcos_Server
 
         public static void PassChangeRequest(int _fromClient, Packet _packet)
         {
-            if (Server.Clients[_fromClient].user.username != null)
+            if(Server.Clients[_fromClient].user.username != null)
             {
 
                 //player is logged
@@ -366,13 +362,13 @@ namespace Bobcos_Server
                         //send password cant change message
                     }
                 }
-
+               
             }
             else
             {
                 byte readbyte = _packet.ReadByte();
 
-
+             
                 string mail = _packet.ReadString();
                 string username = _packet.ReadString();
 
@@ -402,17 +398,17 @@ namespace Bobcos_Server
                 return;
             }
 
-            if (itemcount < 1)
+            if(itemcount < 1)
             {
                 return;
             }
 
 
-            if (worldname == null)
+            if(worldname == null)
             {
                 return;
             }
-            if (!itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].istradable)
+            if(!itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].istradable)
             {
                 return;
             }
@@ -420,19 +416,19 @@ namespace Bobcos_Server
             {
                 return;
             }
-
+           
 
             foreach (InventoryTile i in Logic.GetInventory(Server.Clients[_Fromcliemt].user.username.ToUpper()))
             {
-                if (i.count >= itemcount && Server.Clients[_Fromcliemt].user.CurrentSelecteditem == i.id)
+                if(i.count >= itemcount && Server.Clients[_Fromcliemt].user.CurrentSelecteditem == i.id)
                 {
                     if (Server.Clients[_Fromcliemt].user.isFacingLeft)
                     {
-                        if (DroppingSystem.DropItem(worldname, Server.Clients[_Fromcliemt].user.CurrentSelecteditem, (int)itemcount, Server.Clients[_Fromcliemt].user.xpos - 0.8f, Server.Clients[_Fromcliemt].user.ypos - 0.3f, _Fromcliemt))
+                     if(   DroppingSystem.DropItem(worldname, Server.Clients[_Fromcliemt].user.CurrentSelecteditem, (int)itemcount, Server.Clients[_Fromcliemt].user.xpos - 0.8f, Server.Clients[_Fromcliemt].user.ypos - 0.3f, _Fromcliemt) )
                         {
 
                             Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -itemcount);
-                            //DiscordPart.SendItemDrop(Server.Clients[_Fromcliemt].user.username, Server.Clients[_Fromcliemt].user.World, itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemname, itemcount);
+                            DiscordPart.SendItemDrop(Server.Clients[_Fromcliemt].user.username, Server.Clients[_Fromcliemt].user.World, itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemname, itemcount);
 
                         }
 
@@ -441,11 +437,11 @@ namespace Bobcos_Server
                     else
                     {
 
-                        if (DroppingSystem.DropItem(worldname, Server.Clients[_Fromcliemt].user.CurrentSelecteditem, (int)itemcount, Server.Clients[_Fromcliemt].user.xpos + 0.8f, Server.Clients[_Fromcliemt].user.ypos - 0.3f, _Fromcliemt) == true)
+                      if(  DroppingSystem.DropItem(worldname, Server.Clients[_Fromcliemt].user.CurrentSelecteditem, (int)itemcount, Server.Clients[_Fromcliemt].user.xpos + 0.8f, Server.Clients[_Fromcliemt].user.ypos - 0.3f, _Fromcliemt) == true)
                         {
 
                             Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -itemcount);
-                           // DiscordPart.SendItemDrop(Server.Clients[_Fromcliemt].user.username, Server.Clients[_Fromcliemt].user.World, itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemname, itemcount);
+                            DiscordPart.SendItemDrop(Server.Clients[_Fromcliemt].user.username, Server.Clients[_Fromcliemt].user.World, itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemname, itemcount);
 
                         }
 
@@ -462,7 +458,7 @@ namespace Bobcos_Server
 
 
 
-
+            
         }
 
         public static void TradeUpdate(int _Fromcliemt, Packet _packet)
@@ -477,7 +473,7 @@ namespace Bobcos_Server
 
 
 
-            if (operation == 1)
+            if(operation == 1)
             {
 
                 //Input Update
@@ -494,7 +490,7 @@ namespace Bobcos_Server
                 short item4Count = _packet.ReadShort();
 
 
-                if (Server.Clients[_Fromcliemt].user.Trade == null)
+                if(Server.Clients[_Fromcliemt].user.Trade == null)
                 {
                     //trade is null????
                     Console.WriteLine("Trade is null");
@@ -515,7 +511,7 @@ namespace Bobcos_Server
                     Server.Clients[_Fromcliemt].user.Trade.TryCompleteTrade(_Fromcliemt);
                 }
             }
-            if (operation == 3)
+            if(operation == 3)
             {
                 //cancel trade
                 try
@@ -541,7 +537,7 @@ namespace Bobcos_Server
                 {
 
 
-                    if (Server.Clients[_Fromcliemt].user.Trade != null)
+                    if(Server.Clients[_Fromcliemt].user.Trade != null)
                     {
                         if (Server.Clients[_Fromcliemt].user.Trade.player1id != 0)
                         {
@@ -551,7 +547,7 @@ namespace Bobcos_Server
 
                         }
                     }
-
+                    
                 }
                 catch
                 {
@@ -574,7 +570,7 @@ namespace Bobcos_Server
             short item2 = _packet.ReadShort();
 
 
-            if (Server.Clients[_Fromcliemt].user.worldCraftDataOrder == -1)
+            if(Server.Clients[_Fromcliemt].user.worldCraftDataOrder == -1)
             {
                 if (CraftingSystem.CheckIfCrafting(_Fromcliemt))
                 {
@@ -585,8 +581,7 @@ namespace Bobcos_Server
                 {
                     CraftingSystem.BeginCrafting(_Fromcliemt, item1, item2);
                 }
-            }
-            else
+            }else
             {
 
                 if (CraftingSystem.CheckIfCrafting(_Fromcliemt, Server.Clients[_Fromcliemt].user.worldCraftDataOrder))
@@ -601,7 +596,7 @@ namespace Bobcos_Server
 
             }
 
-
+         
 
         }
 
@@ -633,7 +628,7 @@ namespace Bobcos_Server
                 Server.Clients[_Fromcliemt].Disconnect();
                 return;
             }
-            short blockid = _packet.ReadShort();
+        short blockid =  _packet.ReadShort();
 
             if (Server.Clients[_Fromcliemt].user != null)
             {
@@ -656,7 +651,7 @@ namespace Bobcos_Server
             if (message == "CH1")
             {
                 //enable chatting baloon
-                if (Server.Clients[_Fromcliemt].user.World != null)
+                if(Server.Clients[_Fromcliemt].user.World != null)
                 {
                     Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendChattingBubbleToEveryone(_Fromcliemt, 1);
                 }
@@ -674,15 +669,15 @@ namespace Bobcos_Server
 
             if (message == "RES")
             {
-
-
-                if (Server.Clients[_Fromcliemt].user.World != null)
+             
+                
+                if(Server.Clients[_Fromcliemt].user.World != null)
                 {
                     int[] pos = Logic.GetWhiteDoorPos(Server.Clients[_Fromcliemt].user.World.ToUpper());
-                    Server.Clients[_Fromcliemt].user.SetPosWithoutDistanceCheck(pos[0], pos[1] + 0.4f, 0, false);
+                    Server.Clients[_Fromcliemt].user.SetPosWithoutDistanceCheck(pos[0] , pos[1] + 0.4f,0,false);
 
-                    ServerSend.SendPosition(_Fromcliemt, 0, pos[0], pos[1] + 0.4f, false);
-                    Logic.worlds[Server.Clients[_Fromcliemt].user.World].SendPositionToEveryonexpectClient(pos[0], pos[1] + 0.4f, _Fromcliemt, false);
+                    ServerSend.SendPosition(_Fromcliemt, 0, pos[0] , pos[1] + 0.4f, false);
+                    Logic.worlds[Server.Clients[_Fromcliemt].user.World].SendPositionToEveryonexpectClient(pos[0] , pos[1] + 0.4f, _Fromcliemt,false);
 
 
 
@@ -768,7 +763,7 @@ namespace Bobcos_Server
 
             }
 
-            if (message == "UI_MENU3_LEAVEWORLD")
+                if (message == "UI_MENU3_LEAVEWORLD")
             {
                 //leave world and goto menu
                 if (Server.Clients[_Fromcliemt].user.World != "")
@@ -793,8 +788,7 @@ namespace Bobcos_Server
                 if (!CraftingSystem.CheckIfCrafting(_Fromcliemt))
                 {
                     ServerSend.SendString(_Fromcliemt, "UI_SHOW_CRAFT");
-                }
-                else
+                }else
                 {
 
                     CraftingSystem.TryToGetCraftedItem(_Fromcliemt);
@@ -802,11 +796,11 @@ namespace Bobcos_Server
                 }
 
             }
-            if (message == "AD_212")
+            if(message == "AD_212")
             {
                 useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[_Fromcliemt].user.username.ToUpper()}.json"));
 
-                if (i.AdsLeftWatch > 0)
+                if(i.AdsLeftWatch > 0)
                 {
                     Random rand = new Random();
                     int randomgemcount = rand.Next(0, 1000);
@@ -817,16 +811,16 @@ namespace Bobcos_Server
                     useraccount acc = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[_Fromcliemt].user.username.ToUpper()}.json"));
 
 
-
-                    acc.AdsLeftWatch--;
+                   
+                        acc.AdsLeftWatch--;
                     acc.ADRefresherTime = DateTime.Now.AddHours(12);
-                    string dataofacc2 = JsonSerializer.Serialize(acc);
+                        string dataofacc2 = JsonSerializer.Serialize(acc);
 
-                    File.WriteAllText("accounts/" + Server.Clients[_Fromcliemt].user.username.ToUpper() + ".json", dataofacc2);
-
+                        File.WriteAllText("accounts/" + Server.Clients[_Fromcliemt].user.username.ToUpper() + ".json", dataofacc2);
+                   
 
                 }
-
+             
             }
         }
 
@@ -851,13 +845,13 @@ namespace Bobcos_Server
 
             short sira = _packet.ReadShort();
             //Check world name
-            if (Server.Clients[_Fromcliemt].user.World == null)
+            if(Server.Clients[_Fromcliemt].user.World == null)
             {
                 return;
             }
             string worldname = Server.Clients[_Fromcliemt].user.World;
 
-            if (worldname == null)
+            if(worldname == null)
             {
                 return;
             }
@@ -866,12 +860,12 @@ namespace Bobcos_Server
             Vector2 playerpos = new Vector2(Server.Clients[_Fromcliemt].user.xpos, Server.Clients[_Fromcliemt].user.ypos);
             Vector2 Blockpos = new Vector2(WorldDataConverter.ConvertComplexidtopos(sira)[0], WorldDataConverter.ConvertComplexidtopos(sira)[1]);
 
-            if (!Logic.CheckItemInInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, 0))
+          if(!  Logic.CheckItemInInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, 0))
             {
                 return;
             }
 
-            if (Vector2.Distance(playerpos, Blockpos) > 3.6f)
+          if(Vector2.Distance(playerpos, Blockpos) > 3.6f)
             {
                 return;
             }
@@ -899,7 +893,7 @@ namespace Bobcos_Server
 
                 ServerSend.SendChat(_Fromcliemt, "You got 5000 Gems from Golden loot!");
 
-
+                
                 Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -1);
                 Logic.GetInventoryAndSend(_Fromcliemt, Server.Clients[_Fromcliemt].user.username.ToUpper());
                 return;
@@ -908,17 +902,15 @@ namespace Bobcos_Server
 
 
             Logic.worlds[worldname.ToUpper()].SendPunch(_Fromcliemt);
-            Logic.worlds[worldname.ToUpper()].SendTalk(_Fromcliemt);
 
-
-            if (worldname != "")
+            if(worldname != "")
 
 
 
 
             {
 
-                if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "WRENCH")
+                 if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "WRENCH")
                 {
 
                     if (Logic.ReadWorldFg(worldname)[sira] == 0)
@@ -935,8 +927,8 @@ namespace Bobcos_Server
                     {
                         //look at fg
                         int blockid = Logic.ReadWorldFg(worldname)[sira];
-
-
+                      
+                       
                         if (blockid == 47)
                         {
 
@@ -944,7 +936,7 @@ namespace Bobcos_Server
                             useraccount i = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[_Fromcliemt].user.username.ToUpper()}.json"));
 
 
-                            if (i.ADRefresherTime < DateTime.Now)
+                            if(i.ADRefresherTime < DateTime.Now)
                             {
                                 i.AdsLeftWatch = 3;
                                 string dataofacc = JsonSerializer.Serialize(i);
@@ -1030,8 +1022,7 @@ namespace Bobcos_Server
 
                     }
 
-                }
-                catch
+                }catch
                 {
                     return;
                 }
@@ -1067,27 +1058,26 @@ namespace Bobcos_Server
                         if (Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira] == 0)
                         {
                             // Dont do anything.
-                        }
-                        else
+                        }else
                         {
-
+                          
 
                             // break bg
                             //Check health of block if its equal to destroy health set it to 0 and destory
-
-                            //add one more and if its equal destroy
-                            Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira]++;
-                            int old = Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira];
-                            if (pickaxehelpercount == 1 && itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].blockhealth <= 1)
+                          
+                                //add one more and if its equal destroy
+                                Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira]++;
+                                int old = Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira];
+                            if(pickaxehelpercount == 1 && itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].blockhealth <= 1)
                             {
                                 pickaxehelpercount = 0;
                             }
-                            if (pickaxehelpercount == 7 || Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira] == itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].blockhealth - pickaxehelpercount)
-                            {
+                            if (pickaxehelpercount == 7 ||  Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira] == itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].blockhealth -pickaxehelpercount)
+                                {
                                 //destory it
                                 //Give gem to player
                                 //give xp to player
-                                if (pickaxehelpercount == 7)
+                                if(pickaxehelpercount == 7)
                                 {
                                     pickaxehelpercount = 0;
                                 }
@@ -1104,6 +1094,7 @@ namespace Bobcos_Server
                                     if (itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick != null)
                                     {
                                         int itemToGive = itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick.itemToGive;
+
                                         int itemCount = itemdata.items[itemToGive].RandomPick.Pick();
                                         if (itemCount != 0)
                                         {
@@ -1130,15 +1121,15 @@ namespace Bobcos_Server
                                 //
 
                                 Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira] = 0;
-                                Logic.EditWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper(), sira, 0);
-                                Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)0, "bg");
-                            }
+                                    Logic.EditWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper(), sira, 0);
+                                    Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)0, "bg");
+                                }
 
 
 
 
                             Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockBreakToEveryoneInWorld(sira, (byte)Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira]);
-
+                        
 
 
 
@@ -1153,15 +1144,15 @@ namespace Bobcos_Server
                     else
                     {
                         // break fg
+                       
+                            Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira]++;
+                            int old = Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira];
 
-                        Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira]++;
-                        int old = Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira];
 
 
-
-                        if (Logic.ReadWorldFg(worldname.ToUpper())[sira] == itemdata.worldlockid)
+                        if(Logic.ReadWorldFg(worldname.ToUpper())[sira] == itemdata.worldlockid)
                         {
-                            if (isaccessedplayer)
+                            if(isaccessedplayer)
                             {
                                 ServerSend.SendChat(_Fromcliemt, "Only owner can break locks.");
                                 //Accessed players cant break
@@ -1185,9 +1176,9 @@ namespace Bobcos_Server
                             pickaxehelpercount = 0;
                         }
                         //
-
+                        
                         if (pickaxehelpercount == 7 || Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira] == itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].blockhealth - pickaxehelpercount)
-                        {
+                            {
                             if (pickaxehelpercount == 7)
                             {
                                 pickaxehelpercount = 0;
@@ -1201,7 +1192,7 @@ namespace Bobcos_Server
                             {
                                 //item 30 detected check inside
 
-                                if (CraftingSystem.CheckIfCrafting(_Fromcliemt, sira))
+                             if(CraftingSystem.CheckIfCrafting(_Fromcliemt,sira))
                                 {
                                     WorldCraftData acc = JsonSerializer.Deserialize<WorldCraftData>(File.ReadAllText("worldcraftdata/" + Server.Clients[_Fromcliemt].user.World.ToUpper() + ".json"));
                                     acc.Data[sira].resultItem = 0;
@@ -1220,14 +1211,14 @@ namespace Bobcos_Server
 
 
                             //Get some random block
-                            try
-                            {
+                            try {
 
 
                                 string username = Server.Clients[_Fromcliemt].user.username.ToUpper();
                                 if (itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick != null)
                                 {
                                     int itemToGive = itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].RandomPick.itemToGive;
+
                                     int itemCount = itemdata.items[itemToGive].RandomPick.Pick();
 
 
@@ -1252,14 +1243,14 @@ namespace Bobcos_Server
 
 
                             Random rand = new Random();
-                            int selectedgems = rand.Next(itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].mingem, itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].maxgem);
-
+                            int selectedgems =  rand.Next(itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].mingem, itemdata.items[Logic.ReadWorldBg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].maxgem);
+                         
                             Logic.AddGems(Server.Clients[_Fromcliemt].user.username.ToUpper(), selectedgems);
                             ServerSend.SendCash(_Fromcliemt, Logic.GetGems(Server.Clients[_Fromcliemt].user.username.ToUpper()));
 
                             Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira] = 0;
 
-                            if (Logic.ReadWorldFg(worldname.ToUpper())[sira] == itemdata.worldlockid)
+                            if(Logic.ReadWorldFg(worldname.ToUpper())[sira] == itemdata.worldlockid)
                             {
                                 Logic.SetWorldOwner(worldname.ToUpper(), null);
                                 ServerSend.SendChat(_Fromcliemt, "You are not owning this world anymore.");
@@ -1269,10 +1260,10 @@ namespace Bobcos_Server
                             }
 
 
-                            Logic.EditWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper(), sira, 0);
-                            Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)0, "fg");
+                                Logic.EditWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper(), sira, 0);
+                                Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)0, "fg");
 
-                        }
+                            }
 
                         Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockBreakToEveryoneInWorld(sira, (byte)Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].HealthOfBlocks[sira]);
                         //Check if its still old 
@@ -1291,7 +1282,7 @@ namespace Bobcos_Server
                 {
 
                     //Todo: if selected block is not 0, cancel block putting.
-                    if (Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira] != 0)
+                   if(Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira] != 0)
                     { return; }
 
 
@@ -1315,7 +1306,7 @@ namespace Bobcos_Server
                                 Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -1);
 
                                 //Send block information to players in world 
-                                Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)i.id, "fg");
+                                Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)i.id,"fg");
 
                                 //Send inventory data to player
                                 Logic.GetInventoryAndSend(_Fromcliemt, Server.Clients[_Fromcliemt].user.username.ToUpper());
@@ -1355,7 +1346,7 @@ namespace Bobcos_Server
                         }
                     }
                 }
-                else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "LOCK")
+                else if(itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "LOCK")
                 {
                     if (Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira] != 0)
                     { return; }
@@ -1402,18 +1393,18 @@ namespace Bobcos_Server
                     }
 
 
-
-
+                  
+                
 
                 }
                 else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "WRENCH")
                 {
-
-                    if (Logic.ReadWorldFg(worldname)[sira] == 0)
+                  
+                    if(Logic.ReadWorldFg(worldname)[sira] == 0)
                     {
                         int blockid = Logic.ReadWorldBg(worldname)[sira];
 
-
+                        
 
 
 
@@ -1441,7 +1432,7 @@ namespace Bobcos_Server
                             //Get machine info
                             Server.Clients[_Fromcliemt].user.worldCraftDataOrder = sira;
 
-                            if (CraftingSystem.CheckIfCrafting(_Fromcliemt, sira))
+                            if(CraftingSystem.CheckIfCrafting(_Fromcliemt,sira))
                             {
                                 CraftingSystem.TryToGetCraftedItem(_Fromcliemt, sira);
                             }
@@ -1485,10 +1476,10 @@ namespace Bobcos_Server
 
                     }
 
-
+                    
 
                 }
-
+               
 
 
 
@@ -1501,7 +1492,7 @@ namespace Bobcos_Server
 
         public static void BlockOperationCoolDown(object clientid)
         {
-
+           
         }
 
 
@@ -1520,7 +1511,7 @@ namespace Bobcos_Server
             {
 
                 //Show item info 
-                if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem] == null)
+                if(itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem] == null)
                 {
                     return;
                 }
@@ -1541,16 +1532,16 @@ namespace Bobcos_Server
             Server.Clients[_Fromcliemt].user.CurrentSelecteditem = (short)inventory[selecteditemsirasi].id;
 
 
-
+           
         }
-
+       
 
         public static void PositionFromClient(int _Fromcliemt, Packet _packet)
         {
 
 
 
-
+            
             if (!Server.Clients[_Fromcliemt].user.PassedVertifaction)
             {
                 Server.Clients[_Fromcliemt].Disconnect();
@@ -1560,13 +1551,12 @@ namespace Bobcos_Server
             float x = _packet.ReadFloat();
             float y = _packet.ReadFloat();
             bool isjumping = _packet.ReadBool();
-            Server.Clients[_Fromcliemt].user.SetPos(x, y, 0, isjumping);
-            Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendWalk(_Fromcliemt);
+            Server.Clients[_Fromcliemt].user.SetPos(x, y, 0,isjumping);
 
 
         }
 
-        public static void ChatFromClient(int _fromclient, Packet _packet)
+        public static void ChatFromClient(int _fromclient,Packet _packet)
         {
             if (!Server.Clients[_fromclient].user.PassedVertifaction)
             {
@@ -1576,7 +1566,7 @@ namespace Bobcos_Server
             string message = _packet.ReadString();
 
             useraccount account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText("accounts/" + Server.Clients[_fromclient].user.username.ToUpper() + ".json"));
-            //DiscordPart.PlayerChat(Server.Clients[_fromclient].user.username, message, Server.Clients[_fromclient].user.World);
+            DiscordPart.PlayerChat(Server.Clients[_fromclient].user.username, message, Server.Clients[_fromclient].user.World);
             if (account.MuteExpireTime > DateTime.Now)
             {
                 ServerSend.SendChat(_fromclient, $"<color=red>You are muted, You cannot send messages right now, Your mute will end in {account.MuteExpireTime - DateTime.Now} Mute reason: {account.MuteReason}</color>");
@@ -1611,10 +1601,9 @@ namespace Bobcos_Server
                     Logic.worlds[Server.Clients[_fromclient].user.World.ToUpper()].SendMessageToEveryoneInWorld($"[<color=blue>{Server.Clients[_fromclient].user.realusername}</color>]: {message}");
                     Logic.worlds[Server.Clients[_fromclient].user.World.ToUpper()].SendChatBubbleToEveryoneExpectPlayer(message, _fromclient);
                     ServerSend.SendPlayerChatBubble(_fromclient, message, 0);
-                    Logic.worlds[Server.Clients[_fromclient].user.World.ToUpper()].SendTalk(_fromclient);
 
                     Logss.UserLog($"Player {Server.Clients[_fromclient].user.username} in world {Server.Clients[_fromclient].user.World} Sended message: {message}", Server.Clients[_fromclient].user.username);
-                    Logss.WorldLog($"Player {Server.Clients[_fromclient].user.username} Sended message: {message}", Server.Clients[_fromclient].user.World);
+                  Logss.WorldLog($"Player {Server.Clients[_fromclient].user.username} Sended message: {message}", Server.Clients[_fromclient].user.World);
 
 
 
@@ -1623,12 +1612,12 @@ namespace Bobcos_Server
                 Server.Clients[_fromclient].user.ChatCooldown = true;
                 Server.Clients[_fromclient].user.ChatCooldown = false;
             }
-
+                 
         }
 
         public static void TrashRequest(int _fromclient, Packet _packet)
         {
-            if (!Server.Clients[_fromclient].user.PassedVertifaction)
+             if (!Server.Clients[_fromclient].user.PassedVertifaction)
             {
                 Server.Clients[_fromclient].Disconnect();
                 return;
@@ -1647,7 +1636,7 @@ namespace Bobcos_Server
                 return;
 
             }
-            if (!itemdata.items[Server.Clients[_fromclient].user.CurrentSelecteditem].istrashable)
+            if(!itemdata.items[Server.Clients[_fromclient].user.CurrentSelecteditem].istrashable)
             { return; }
 
             Logic.AddItemToInventory(Server.Clients[_fromclient].user.username.ToUpper(), Server.Clients[_fromclient].user.CurrentSelecteditem, (int)-count);

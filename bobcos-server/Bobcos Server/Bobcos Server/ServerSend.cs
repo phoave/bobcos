@@ -11,7 +11,7 @@ namespace Bobcos_Server
         {
 
 
-         
+
             _packet.WriteLength();
 
 
@@ -23,15 +23,15 @@ namespace Bobcos_Server
         static private void SendUdpData(int _ToClient, Packet _packet)
         {
 
-            
-
-                _packet.WriteLength();
 
 
-                Server.SendUDPData(Server.server.GetPeerById(_ToClient), _packet, LiteNetLib.DeliveryMethod.Unreliable);
+            _packet.WriteLength();
 
-            
-         
+
+            Server.SendUDPData(Server.server.GetPeerById(_ToClient), _packet, LiteNetLib.DeliveryMethod.Unreliable);
+
+
+
 
         }
 
@@ -182,7 +182,7 @@ namespace Bobcos_Server
 
                 ServerSend.SendPlayerApprence(_toclient, acc.r, acc.g, acc.b, acc.t, acc.shirt, acc.pants, acc.shoes, acc.back, acc.head, 0, acc.hat, acc.handitem, acc.badge);
             }
-                foreach (InventoryTile i in inv)
+            foreach (InventoryTile i in inv)
             {
 
                 p.Write((short)i.id);
@@ -243,9 +243,6 @@ namespace Bobcos_Server
 
 
         }
-
-
-
         static public void SendItemInfo(int _toclient, string itemname, string iteminfo, bool istrashable, bool iswearable, bool isdroppable)
         {
             Packet p = new Packet((int)ServerPackets.ItemInfo);
@@ -274,16 +271,17 @@ namespace Bobcos_Server
             //Check items 
 
             //Get Inventory
-           
-            
+
+
             useraccount account;
             if (PlayerId == 0)
             {
-                 account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[_toclient].user.username.ToUpper()}.json"));
+                account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[_toclient].user.username.ToUpper()}.json"));
 
-            }else
+            }
+            else
             {
-                 account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[PlayerId].user.username.ToUpper()}.json"));
+                account = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[PlayerId].user.username.ToUpper()}.json"));
 
             }
 
@@ -292,9 +290,9 @@ namespace Bobcos_Server
             //Check shirt
 
             bool passedshirtver = false, passespantver = false, passedshoever = false, passedbackIdver = false, passesheadId = false, PasseshatId = false, passedhanditemver = false;
-            foreach(InventoryTile i in account.inventory)
+            foreach (InventoryTile i in account.inventory)
             {
-                if(i.id == shirt)
+                if (i.id == shirt)
                 {
                     passedshirtver = true;
                 }
@@ -324,7 +322,7 @@ namespace Bobcos_Server
                 }
             }
 
-            if(passedshirtver == false)
+            if (passedshirtver == false)
             {
                 account.shirt = -1;
                 shirt = -1;
@@ -451,22 +449,22 @@ namespace Bobcos_Server
 
 
         }
-    
-    static public void SendBubble(int _toclient, int playerid,byte animid)
-    {
-        Packet p = new Packet((int)ServerPackets.Bubble);
 
-        p.Write(playerid);
-        p.Write(animid);
+        static public void SendBubble(int _toclient, int playerid, byte animid)
+        {
+            Packet p = new Packet((int)ServerPackets.Bubble);
 
-
-        SendTcpData(_toclient, p);
-        p.Dispose();
+            p.Write(playerid);
+            p.Write(animid);
 
 
-    }
+            SendTcpData(_toclient, p);
+            p.Dispose();
 
-    static public void EnableTradeUI(int _toclient)
+
+        }
+
+        static public void EnableTradeUI(int _toclient)
         {
             Packet p = new Packet((int)ServerPackets.Trade);
 
