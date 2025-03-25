@@ -513,7 +513,7 @@ public   class ClientHandle
         byte animId = _Packet.ReadByte();
         int PlrId = _Packet.ReadInt();
 
-        if (animId == 0)
+      /*  if (animId == 0)
         {
             //punch
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Punch());
@@ -535,7 +535,7 @@ public   class ClientHandle
             PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Talk());
             
 
-        }
+        }*/
 
 
     }
@@ -618,24 +618,32 @@ public   class ClientHandle
 
     }
 
-    public static void PlayerApperance(Packet _Packet)
+    public static void PlayerApperance(Packet packet)
     {
-        Color32 COlor = new Color32(_Packet.ReadByte(), _Packet.ReadByte(), _Packet.ReadByte(), _Packet.ReadByte());
+        // Read the Color data (RGBA)
+        Color32 color = new Color32(packet.ReadByte(), packet.ReadByte(), packet.ReadByte(), packet.ReadByte());
 
-        short shirt = _Packet.ReadShort();
-        short pant = _Packet.ReadShort();
-        short shoes = _Packet.ReadShort();
-        short backid = _Packet.ReadShort();
-        short headid = _Packet.ReadShort();
-        short hatid = _Packet.ReadShort();
+        // Read the appearance-related IDs
+       short shirtId = packet.ReadShort();
+        short pantId = packet.ReadShort();
+        short shoeId = packet.ReadShort();
+        short backId = packet.ReadShort();
+        short hairId = packet.ReadShort();
+        short hatId = packet.ReadShort();
+        short playerId = packet.ReadShort();
+        short handItemId = packet.ReadShort();
+        byte badgeId = packet.ReadByte();
 
-        short plrid = _Packet.ReadShort();
-        short handitem = _Packet.ReadShort();
-        byte badge = _Packet.ReadByte();
+        // Log received data for debugging
+        Debug.Log($"Appearance data received for player {playerId}: " +
+                $"Color: {color}, Shirt ID: {shirtId}, Pant ID: {pantId}, " +
+                $"Shoe ID: {shoeId}, Back ID: {backId}, Hair ID: {hairId}, " +
+                $"Hat ID: {hatId}, Hand Item ID: {handItemId}, Badge ID: {badgeId}");
 
-        Debug.Log("Apperance received");
-        PlayerManager.instance.Players[plrid].GetComponentInChildren<PlayerAnimator2>().UpdatePlayerApperance(COlor, shirt, pant, shoes, backid, headid,hatid,handitem,badge);
-
+        // Apply the appearance data to the corresponding player
+        PlayerManager.instance.Players[playerId].GetComponentInChildren<PlayerApperance>()
+            .UpdatePlayerAppearance(color, shirtId, pantId, shoeId, backId, hairId, hatId, handItemId, badgeId);
     }
+
 }
 

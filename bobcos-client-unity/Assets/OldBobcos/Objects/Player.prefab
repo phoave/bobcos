@@ -848,6 +848,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
+      propertyPath: Animate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1602321570069426449, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: m_Name
       value: Player 2

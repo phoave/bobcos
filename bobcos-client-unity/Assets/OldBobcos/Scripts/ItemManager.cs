@@ -103,7 +103,7 @@ public class HandItem
     public Vector3 offset;
 
 
-    public Sprite[] sprites;
+   
 }
 
 [System.Serializable]
