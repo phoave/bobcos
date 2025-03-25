@@ -16,6 +16,86 @@ public class PlayerApperance : MonoBehaviour
 
     public int BackItemRightNow;
 
+    // Set image method to update sprites for specific items by id
+    public void SetImage(int si, SpriteRenderer item2)
+    {
+        // Check and update sprite for each item type
+        foreach (Block i in ItemManager.instance.BlockItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        foreach (Shirt i in ItemManager.instance.ShirtItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        foreach (Pant i in ItemManager.instance.PantItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        foreach (Shoe i in ItemManager.instance.ShoeItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        foreach (Hat i in ItemManager.instance.HatItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        foreach (Hair i in ItemManager.instance.HairItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        foreach (backitem i in ItemManager.instance.BackItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        foreach (HandItem i in ItemManager.instance.HandItems)
+        {
+            if (i.id == si)
+            {
+                item2.sprite = i.Icon;
+                return;
+            }
+        }
+
+        // If no item was found with the specified id, log a warning
+        Debug.LogWarning($"Item with id {si} not found.");
+    }
+
     // Method to update the player's appearance based on received data
     public void UpdatePlayerAppearance(Color32 SkinColor, int ShirtId, short PantId, int ShoeId, int BackId, int HairId, int HatId, int HandItemId, byte BadgeId)
     {
@@ -39,67 +119,17 @@ public class PlayerApperance : MonoBehaviour
         Foot2.color = SkinColor;
         Head.color = SkinColor;
 
-        // Update shirt sprite
-        if (ShirtId >= 0 && ShirtId < ItemManager.instance.ShirtItems.Length)
-        {
-            Shirt.sprite = ItemManager.instance.ShirtItems[ShirtId].Icon;
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid ShirtId: {ShirtId}. Index out of bounds.");
-        }
-
-        // Update pants sprite
-        if (PantId >= 0 && PantId < ItemManager.instance.PantItems.Length)
-        {
-            Pant1.sprite = ItemManager.instance.PantItems[PantId].Icon;
-            Pant2.sprite = ItemManager.instance.PantItems[PantId].Icon;
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid PantId: {PantId}. Index out of bounds.");
-        }
-
-        // Update shoes sprite
-        if (ShoeId >= 0 && ShoeId < ItemManager.instance.ShoeItems.Length)
-        {
-            Shoe1.sprite = ItemManager.instance.ShoeItems[ShoeId].Icon;
-            Shoe2.sprite = ItemManager.instance.ShoeItems[ShoeId].Icon;
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid ShoeId: {ShoeId}. Index out of bounds.");
-        }
-
-        // Update back item sprite
-        if (BackId >= 0 && BackId < ItemManager.instance.BackItems.Length)
-        {
-            Back.sprite = ItemManager.instance.BackItems[BackId].Icon;
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid BackId: {BackId}. Index out of bounds.");
-        }
-
-        // Update hair sprite
-        if (HairId >= 0 && HairId < ItemManager.instance.HairItems.Length)
-        {
-            Head.sprite = ItemManager.instance.HairItems[HairId].Icon;
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid HairId: {HairId}. Index out of bounds.");
-        }
-
-        // Update hand item sprite
-        if (HandItemId >= 0 && HandItemId < ItemManager.instance.HandItems.Length)
-        {
-            HandItem.sprite = ItemManager.instance.HandItems[HandItemId].Icon;
-        }
-        else
-        {
-            Debug.LogWarning($"Invalid HandItemId: {HandItemId}. Index out of bounds.");
-        }
+        // Update item sprites based on their IDs using SetImage
+        SetImage(ShirtId, Shirt);
+        SetImage(PantId, Pant1);
+        SetImage(PantId, Pant2); // Assuming both pants are the same for simplicity
+        Pant2.transform.localScale = new Vector3(-Mathf.Abs(Pant2.transform.localScale.x), Pant2.transform.localScale.y, Pant2.transform.localScale.z);
+        SetImage(ShoeId, Shoe1);
+        SetImage(ShoeId, Shoe2); // Assuming both shoes are the same for simplicity
+        SetImage(BackId, Back);
+        SetImage(HairId, Hair_); // Assuming hair corresponds to the head sprite
+        SetImage(HatId, Hat_);
+        SetImage(HandItemId, HandItem);
     }
 
     // Animation handling
