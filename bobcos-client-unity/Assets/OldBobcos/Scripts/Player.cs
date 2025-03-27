@@ -2,12 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public int id;
     public string username;
+    public TMP_Text UsernameDisplay;
     public bool ismyplayer = false;
     private bool send = false;
     public float axis = 0;
@@ -47,7 +49,7 @@ public class Player : MonoBehaviour
         lerppos = transform.position;
         username = _username;
         id = _id;
-        GetComponentInChildren<TextMesh>().text = username;
+        UsernameDisplay.text = username;
 
         if (id == 0)
         {

@@ -32,9 +32,9 @@ namespace Bobcos_Server
                 try
                 {
                     // Loop through all item IDs (assuming 109 items)
-                    for (int itemId = 1; itemId <= 109; itemId++)
+                    for (int itemId = 1; itemId <= 112; itemId++)
                     {
-                        int itemcount = 999; // Set the count of items to 999
+                        int itemcount = 50; // Set the count of items to 999
 
                         // Add item to inventory
                         Logic.AddItemToInventory(Server.Clients[clientId].user.username.ToUpper(), itemId, itemcount);
@@ -49,6 +49,38 @@ namespace Bobcos_Server
                     Console.WriteLine("Error: " + ex.Message);
                 }
             }
+
+            if (SplittedString[0] == "/clearall")
+            {
+                useraccount acc2 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[clientId].user.username.ToUpper()}.json"));
+
+                if (acc2.StaffLevel < 4)
+                {
+                    ServerSend.SendChat(clientId, "<color=red>Unknown Command. Type /help to see available commands</color>");
+                    return;
+                }
+
+                try
+                {
+                    // Loop through all item IDs (assuming 112 items)
+                    for (int itemId = 1; itemId <= 112; itemId++)
+                    {
+                        // Remove all of the items from the player's inventory
+                        Logic.AddItemToInventory(Server.Clients[clientId].user.username.ToUpper(), itemId, -999);
+                    }
+
+                    // Send updated inventory (which will now be empty)
+                    Logic.GetInventoryAndSend(clientId, Server.Clients[clientId].user.username.ToUpper());
+
+                    ServerSend.SendChat(clientId, "<color=green>All items have been cleared from your inventory.</color>");
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+
 
 
             if (SplittedString[0] == "/item")

@@ -84,6 +84,18 @@ public class TileScript : MonoBehaviour
                     Collide = true;
                     GetComponent<Collider2D>().isTrigger = false;
                 }
+                else if (isPlatform)
+                {
+                    Collide = false;
+                    GetComponent<Collider2D>().isTrigger = false; // Ensure it is not a trigger
+                    PlatformEffector2D effector = GetComponent<PlatformEffector2D>();
+                    if (effector == null)
+                    {
+                        effector = gameObject.AddComponent<PlatformEffector2D>();
+                    }
+                    effector.useOneWay = true; // Allow one-way collision
+                    effector.rotationalOffset = 0f; // Default: from top only
+                }
                 else
                 {
                     Collide = false;

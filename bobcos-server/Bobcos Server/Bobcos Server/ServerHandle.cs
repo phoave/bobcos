@@ -979,29 +979,7 @@ namespace Bobcos_Server
 
 
 
-                    if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "NUKE")
-                    {
-                        string worldName = Server.Clients[_Fromcliemt].user.World.ToUpper();
-
-                        // Set all blocks to 0 (completely wipe FG and BG), except for items with ID 5 and 11
-                        for (int i = 0; i < Logic.worlds[worldName].HealthOfBlocks.Length; i++)
-                        {
-                            // Skip if the block's ID is 5 or 11
-                            if (Logic.ReadWorldFg(worldName)[i] == 5 || Logic.ReadWorldFg(worldName)[i] == 11)
-                            {
-                                continue; // Don't destroy this block, skip to the next one
-                            }
-
-                            // Destroy everything else
-                            Logic.worlds[worldName].HealthOfBlocks[i] = 0;
-                            Logic.EditWorldFg(worldName, i, 0);
-                            Logic.EditWorldBg(worldName, i, 0);
-                        }
-
-
-                        ServerSend.SendChat(_Fromcliemt, "THE NUKE HAS BEEN DETONATED! YOUR WORLD HAS BEEN ERASED!");
-
-                    }
+                   
 
                 }
 
@@ -1349,6 +1327,38 @@ namespace Bobcos_Server
 
 
                 }
+                if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "NUKE")
+                {
+                  
+                    string worldKey = Server.Clients[_Fromcliemt].user.World.ToUpper();
+
+                    for (int blockIndex = 0; blockIndex < Logic.worlds[worldKey].HealthOfBlocks.Length; blockIndex++)
+                    {
+                        int blockId = Logic.ReadWorldFg(worldKey)[blockIndex];
+
+                       
+                        if (blockId == 5 || blockId == 11 || blockId == 28 || blockId == 110 || blockId == 0)
+                            continue;
+
+                        Logic.worlds[worldKey].HealthOfBlocks[blockIndex] = 0;
+
+                        Logic.EditWorldFg(worldKey, blockIndex, 0);
+       
+                        Logic.EditWorldBg(worldKey, blockIndex, 0);
+
+                        // Send block destruction to all clients instantly
+                        Logic.worlds[worldKey].SendBlockToEveryoneinworld((short)blockIndex, (short)0, "fg");
+                        Logic.worlds[worldKey].SendBlockToEveryoneinworld((short)blockIndex, (short)0, "bg");
+                    }
+
+                   
+                    Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -1);
+
+        
+                    ServerSend.SendChat(_Fromcliemt, "The world has been destroyed with the NUKK!");
+                }
+
+
                 else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "BLOCK")
                 {
 

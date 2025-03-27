@@ -6,7 +6,7 @@ namespace Bobcos_Server
 {
     class itemdata
     {
-        static public item[] items = new item[111];
+        static public item[] items = new item[114];
 
         static public int whitedoorid = 5;
         static public int worldlockid = 28;
@@ -157,6 +157,8 @@ namespace Bobcos_Server
             items[108] = new item { itemname = "Galaxy Sword",avoidAntiNoclip = true, itemid = 108, itemtype = "HAND", iswearable = true, description = "Looks very epic, It has epic effect too!" };
             items[109] = new item { itemname = "Galaxy Wings",avoidAntiNoclip = true, itemid = 109, itemtype = "BACK", description = "Galaxy Wings.", iswearable = true };
             items[110] = new item { itemname = "Display Block",avoidAntiNoclip = true, itemid = 110, itemtype = "DISPLAYBLOCK", description = "Display Block.", blockhealth = 4, maxgem = 0, mingem = 0, RandomPick = new RandomPicker() { randoms = new int[] { 1 }, itemToGive = 110 } };
+            items[111] = new item { itemname = "Wooden Platform", avoidAntiNoclip = true, itemid = 111, itemtype = "BLOCK", description = "Wodden Platform.", blockhealth = 4, maxgem = 0, mingem = 0, RandomPick = new RandomPicker() { randoms = new int[] { 1 }, itemToGive = 110 } };
+            items[112] = new item { itemname = "Nuke", avoidAntiNoclip = true, itemid = 112, itemtype = "NUKE", description = "Clear Your World.", blockhealth = 4, maxgem = 0, mingem = 0, RandomPick = new RandomPicker() { randoms = new int[] { 1 }, itemToGive = 110 } };
         }
 
     }
