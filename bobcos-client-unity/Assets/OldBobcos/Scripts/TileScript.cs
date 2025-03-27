@@ -8,7 +8,7 @@ public class TileScript : MonoBehaviour
     public int siraid;
     public bool isdamage;
     public bool iswater;
-    public bool isPlatform; // New platform property
+    public bool isPlatform; 
     public GameObject ShadowObj;
     public GameObject LightObj;
     bool Animate;
@@ -25,9 +25,9 @@ public class TileScript : MonoBehaviour
             {
                 isdamage = i.isdamageBlock;
                 iswater = i.IsWater;
-                isPlatform = i.isPlatform; // Check if tile is a platform
+                isPlatform = i.isPlatform; 
                 
-                // Handle sprite rendering based on tile type
+             
                 if (iswater)
                 {
                     GetComponent<SpriteRenderer>().sortingOrder = 300;
@@ -79,7 +79,7 @@ public class TileScript : MonoBehaviour
                     }
                 }
 
-                if (i.iscollider && !isPlatform) // Only set solid collision for non-platform tiles
+                if (i.iscollider && !isPlatform) 
                 {
                     Collide = true;
                     GetComponent<Collider2D>().isTrigger = false;
@@ -87,14 +87,14 @@ public class TileScript : MonoBehaviour
                 else
                 {
                     Collide = false;
-                    GetComponent<Collider2D>().isTrigger = true; // Set trigger for platforms so player can jump through
+                    GetComponent<Collider2D>().isTrigger = true; 
                     if (ShadowObj != null)
                     {
                         Destroy(ShadowObj);
                     }
                 }
 
-                // Check if block has animations
+                
                 if (i.Animations != null && i.Animations.Length > 0)
                 {
                     Animate = true;
@@ -110,7 +110,6 @@ public class TileScript : MonoBehaviour
         }
     }
 
-    // Coroutine to repeat animation
     int animOrder = 0;
     IEnumerator RepeatAnim()
     {

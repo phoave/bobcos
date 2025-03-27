@@ -547,5 +547,24 @@ namespace Bobcos_Server
             p.Dispose();
         }
 
+        static public void SendDisplayItemDatas(int _toclient, List<DisplayBlock> data)
+        {
+            Packet p = new Packet((int)ServerPackets.displayBlockItems);
+
+            foreach (DisplayBlock i in data)
+            {
+                if (i != null)
+                {
+                    p.Write((int)i.itemid);
+                    p.Write((int)i.xPos);
+                    p.Write((int)i.yPos);
+                }
+            }
+            p.Write((short)30431);
+
+            SendTcpData(_toclient, p);
+            p.Dispose();
+        }
+
     }
 }

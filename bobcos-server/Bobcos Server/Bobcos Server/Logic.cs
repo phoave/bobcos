@@ -73,6 +73,8 @@ namespace Bobcos_Server
 
         public string[] HardwareIDlog { get; set; }
         public string[] IPLog { get; set; }
+        public string IsWorldOwner { get; set; }
+
 
     }
     class InventoryTile
@@ -531,6 +533,14 @@ namespace Bobcos_Server
 
         }
 
+        static public bool IsWorldOwner(string username, int clientid)
+        {
+            var user = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{username.ToUpper()}.json"));
+            return user.IsWorldOwner == "true"; // Assuming "true"/"false" is stored as string
+        }
+
+
+
         static public int CheckWorldFile(string worldname)
         {
             if (File.Exists($"worlds/{worldname.ToUpper()}.json"))
@@ -544,6 +554,18 @@ namespace Bobcos_Server
 
                 return 0;
             }
+        }
+
+        static public bool IsWorldLocked(string worldname)
+        {
+            worldata world = JsonSerializer.Deserialize<worldata>(File.ReadAllText("worlds/" + worldname.ToUpper() + ".json"));
+
+            if (world.OwnerUserame != null && world.OwnerUserame != "")
+            {
+                return true;
+            }
+
+            return false;
         }
 
         static public void CreateWorld(string worldname)
@@ -797,9 +819,6 @@ namespace Bobcos_Server
 
 
 
-
-
-
             //Check for banned-world status if its banned check player status if its mod let him in, if its not don't.
 
             if (worlddata.isWorldBanned)
@@ -1006,6 +1025,9 @@ namespace Bobcos_Server
                 Logic.TryToReadWorldDataAndSendToClient(idofplayer, worldname.ToUpper());
 
                 worlds[worldname.ToUpper()].SendDrop();
+                worlds[worldname.ToUpper()].SendDisplayBlockData();
+                Logic.worlds[worldname.ToUpper()].SendDisplayBlockData();
+
 
 
 
@@ -1160,6 +1182,7 @@ namespace Bobcos_Server
 
 
                 worlds[worldname.ToUpper()].SendDrop();
+                worlds[worldname.ToUpper()].SendDisplayBlockData();
 
 
             }
@@ -1320,12 +1343,8 @@ namespace Bobcos_Server
         static public string GetWorldOwnerName(string worldname)
         {
 
-
-
-
             worldata n = JsonSerializer.Deserialize<worldata>(File.ReadAllText($"worlds/{worldname.ToUpper()}.json"));
             return n.OwnerUserame;
-
         }
 
         public static List<string> GetWorldAccessedPlayers(string worldname)
@@ -1887,6 +1906,31 @@ namespace Bobcos_Server
             }
         }
 
+        public void SendDisplayBlockData()
+        {
+            if (File.Exists($"displayBlockWorldData/{WorldName.ToUpper()}.json"))
+            {
+                foreach (int i in Playersinworld)
+                {
+                    try
+                    {
+                        List<DisplayBlock> displayData = JsonSerializer.Deserialize<List<DisplayBlock>>(File.ReadAllText($"displayBlockWorldData/{WorldName.ToUpper()}.json"));
+                        ServerSend.SendDisplayItemDatas(i, displayData);
+                        Console.WriteLine("sent display items");
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Logic.cs#2021: " + e.Message);
+                    }
+                }
+            }
+            else
+            {
+                DisplayBlock[] displayBlocks = new DisplayBlock[4703];
+                string updateText = JsonSerializer.Serialize(displayBlocks);
+                File.WriteAllText("displayBlockWorldData/" + WorldName.ToUpper() + ".json", updateText);
+            }
+        }
 
         public void SendPunch(int playerid)
         {

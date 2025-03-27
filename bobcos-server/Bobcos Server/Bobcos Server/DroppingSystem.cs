@@ -32,6 +32,8 @@ class DroppingSystem
             File.WriteAllText($"dropItemWorldData/{Worldname.ToUpper()}.json", JsonSerializer.Serialize(newdata));
 
             Logic.worlds[Worldname.ToUpper()].SendDrop();
+            Logic.worlds[Worldname.ToUpper()].SendDisplayBlockData();
+
             return true;
         }
         else
@@ -46,6 +48,7 @@ class DroppingSystem
 
            
             Logic.worlds[Worldname.ToUpper()].SendDrop();
+            Logic.worlds[Worldname.ToUpper()].SendDisplayBlockData();
             return true;
         }
     }
@@ -111,9 +114,9 @@ class DroppingSystem
                      
                     File.WriteAllText($"dropItemWorldData/{Worldname.ToUpper()}.json", JsonSerializer.Serialize(datareaded));
                     Logic.worlds[Worldname.ToUpper()].SendDrop();
+                    Logic.worlds[Worldname.ToUpper()].SendDisplayBlockData();
 
-
-                   Logss.WorldLog   ($"Player {Server.Clients[clientid].user.username} Taked item: {itemdata.items[i.itemid].itemname} {i.itemcount}x ", Worldname);
+                    Logss.WorldLog   ($"Player {Server.Clients[clientid].user.username} Taked item: {itemdata.items[i.itemid].itemname} {i.itemcount}x ", Worldname);
                     Logss.UserLog($"Player {Server.Clients[clientid].user.username} in world {Server.Clients[clientid].user.World} Taked: {itemdata.items[i.itemid].itemname} {i.itemcount}x", Server.Clients[clientid].user.username);
                     return;
                     }

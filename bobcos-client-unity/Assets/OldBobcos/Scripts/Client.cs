@@ -188,7 +188,8 @@ public class Client : MonoBehaviour
                                         {(int)ServerPackets.DropDatas,ClientHandle.DropDatas },
                                         {(int)ServerPackets.ClientInfo,ClientHandle.ClientInfo },
                     {(int)ServerPackets.Bubble,ClientHandle.BubbleReceived },
-                    {(int)ServerPackets.WarningMessage,ClientHandle.WarningFromServer }
+                    {(int)ServerPackets.WarningMessage,ClientHandle.WarningFromServer },
+                     {(int)ServerPackets.displayBlockItems,ClientHandle.DisplayBlockDatas },
 
 
         };

@@ -17,7 +17,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (OldPos.y > Player.transform.position.y)
         {
-            // Play falling animation
+            
             anim.SetBool("Ypos", false);
             anim.Play("PlayerFall");
         }
@@ -40,15 +40,19 @@ public class PlayerAnimator : MonoBehaviour
         {
             anim.SetBool("IsWalking", false);
         }
-        if(UICLICK.IsBusy)
-        {
-            anim.SetBool("IsPunching", true);
-        }
-        else
-        {
-            anim.SetBool("IsPunching", false);
-        }
+ 
         OldPos = Player.transform.position;
+    }
+
+    bool ispunching = false;
+    public IEnumerator Punchs()
+    {
+        ispunching = true;
+        anim.SetTrigger("Punch");
+
+        yield return new WaitForSeconds(0.5f); // Adjust time based on animation duration
+
+        ispunching = false;
     }
 
     // New method to trigger punch animation

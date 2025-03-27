@@ -27,7 +27,8 @@ using System.Text;
     DropDatas = 19,
     ClientInfo = 20,
     Bubble = 21,
-    WarningMessage = 22
+    WarningMessage = 22,
+    displayBlockItems = 23,
 
 
 

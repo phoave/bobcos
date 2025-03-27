@@ -516,7 +516,7 @@ public   class ClientHandle
         if (animId == 0)
         {
             //punch
-            PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator2>().Punch());
+            PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator>().StartCoroutine(PlayerManager.instance.Players[PlrId].GetComponentInChildren<PlayerAnimator>().Punchs());
             
         }
         if (animId == 1)
@@ -536,6 +536,23 @@ public   class ClientHandle
 
 
     }
+
+    public static void DisplayBlockDatas(Packet _Packet)
+    {
+        DisplayBlockItemManager.instance.clearDisplayItems();
+
+        while (true)
+        {
+            int itemid = _Packet.ReadInt();
+            if (itemid == 30431) { return; }
+            int Xpos = _Packet.ReadInt();
+            int Ypos = _Packet.ReadInt();
+
+            //public void displayVendingItem(short itemId, int itemCount, int paymentReceived, int itemPerPrice, int posx, int posy) {
+            DisplayBlockItemManager.instance.displayDisplayItem(itemid, Xpos, Ypos);
+        }
+    }
+    
     public static void TradeUpdate(Packet _Packet)
     {
         byte sel = _Packet.ReadByte();

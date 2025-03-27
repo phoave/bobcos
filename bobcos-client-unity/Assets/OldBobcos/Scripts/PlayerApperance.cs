@@ -27,11 +27,11 @@ public class PlayerApperance : MonoBehaviour
         // **Detect if player is jumping (y increasing)**
         if (transform.position.y > oldPos.y)  // Jumping
         {
-            UpdateBackItem(false);  // Set to jumping sprite
+            UpdateBackItem(true);  // Set to jumping sprite
         }
         else if (transform.position.y < oldPos.y)  // Falling
         {
-            UpdateBackItem(true); // Set to normal sprite
+            UpdateBackItem(false); // Set to normal sprite
         }
 
         oldPos = transform.position; // Update old position
@@ -47,7 +47,7 @@ public class PlayerApperance : MonoBehaviour
                 // **Change sprite based on jump state**
                 if (i.anims.Length > 1) // Ensure there's a jump animation
                 {
-                    Back.sprite = isJumping ? i.anims[1] : i.anims[0];
+                    Back.sprite = isJumping ? i.anims[0] : i.anims[1];
                 }
                 else
                 {

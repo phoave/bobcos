@@ -832,6 +832,7 @@ namespace Bobcos_Server
                 return;
             }
 
+
             bool isaccessedplayer = false;
             Thread b = new Thread(new ParameterizedThreadStart(BlockOperationCoolDown));
             b.Start(_Fromcliemt);
@@ -910,25 +911,26 @@ namespace Bobcos_Server
 
             {
 
-                 if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "WRENCH")
-                {
-
+                if(itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "WRENCH")
+{
                     if (Logic.ReadWorldFg(worldname)[sira] == 0)
                     {
                         int blockid = Logic.ReadWorldBg(worldname)[sira];
 
-
-
-
-
-                        //Check bg
+                        if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
+                        {
+                            return;
+                        }
                     }
                     else
                     {
-                        //look at fg
                         int blockid = Logic.ReadWorldFg(worldname)[sira];
-                      
-                       
+
+                        if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
+                        {
+                            return;
+                        }
+
                         if (blockid == 47)
                         {
 
@@ -977,6 +979,29 @@ namespace Bobcos_Server
 
 
 
+                    if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "NUKE")
+                    {
+                        string worldName = Server.Clients[_Fromcliemt].user.World.ToUpper();
+
+                        // Set all blocks to 0 (completely wipe FG and BG), except for items with ID 5 and 11
+                        for (int i = 0; i < Logic.worlds[worldName].HealthOfBlocks.Length; i++)
+                        {
+                            // Skip if the block's ID is 5 or 11
+                            if (Logic.ReadWorldFg(worldName)[i] == 5 || Logic.ReadWorldFg(worldName)[i] == 11)
+                            {
+                                continue; // Don't destroy this block, skip to the next one
+                            }
+
+                            // Destroy everything else
+                            Logic.worlds[worldName].HealthOfBlocks[i] = 0;
+                            Logic.EditWorldFg(worldName, i, 0);
+                            Logic.EditWorldBg(worldName, i, 0);
+                        }
+
+
+                        ServerSend.SendChat(_Fromcliemt, "THE NUKE HAS BEEN DETONATED! YOUR WORLD HAS BEEN ERASED!");
+
+                    }
 
                 }
 
@@ -1160,6 +1185,52 @@ namespace Bobcos_Server
                             }
                         }
 
+                        if (itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].itemtype == "DISPLAYBLOCK")
+                        {
+                            List<DisplayBlock> list = JsonSerializer.Deserialize<List<DisplayBlock>>(File.ReadAllText("displayBlockWorldData/" + worldname.ToUpper() + ".json"));
+
+                            // break
+                            if (list[sira] != null)
+                            {
+                                if (list[sira].itemid > 0)
+                                {
+                                    if (isaccessedplayer)
+                                    {
+                                        return;
+                                    }
+                                    if (Logic.CanTakeItem(accountOfUser.username, list[sira].itemid, 1))
+                                    {
+                                        Logic.AddItemToInventory(accountOfUser.username, list[sira].itemid, 1);
+                                        Logic.GetInventoryAndSend(_Fromcliemt, accountOfUser.username);
+
+                                        list[sira].itemid = 0;
+                                        list[sira].xPos = 0;
+                                        list[sira].yPos = 0;
+
+                                        try
+                                        {
+                                            string updateText = JsonSerializer.Serialize(list);
+                                            File.WriteAllText("displayBlockWorldData/" + worldname.ToUpper() + ".json", updateText);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine(ex.Message + ex.StackTrace);
+                                        }
+
+                                        ServerSend.SendChat(_Fromcliemt, "<color=#22FF00FF>Returned your displayed item to your inventory.</color>");
+
+                                        Logic.worlds[worldname].SendDisplayBlockData();
+                                    }
+                                    else
+                                    {
+                                        ServerSend.SendChat(_Fromcliemt, "<color=#FF0000FF>You don't have space to return your item, block can't be broken</color>");
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+
+
                         //ITEM 30 CRAFTING MACHINE IS WORKING 
                         if (Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira] == 30)
                         {
@@ -1314,6 +1385,51 @@ namespace Bobcos_Server
                         }
                     }
                 }
+                else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "DISPLAYBLOCK")
+                {
+                   
+
+                   if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
+                    {
+                        DisplayBlockSystem.PlaceDisplayBlockItem(_Fromcliemt, sira, Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
+                        return;
+                    }
+
+                    if (Logic.ReadWorldFg(worldname)[sira] == 0)
+                    {
+                        // player is in world
+                        //Check inventory item count, if theres count -1 it
+                        List<InventoryTile> inventory = Logic.GetInventory(Server.Clients[_Fromcliemt].user.username);
+
+                        foreach (InventoryTile i in inventory)
+                        {
+                            if (Server.Clients[_Fromcliemt].user.CurrentSelecteditem == i.id)
+                            {
+                                // item found check count
+                                if (i.count > 0)
+                                {
+                                    //Change world data and remove 1 block from inventory
+                                    Logic.EditWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper(), sira, Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
+                                    Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -1);
+                                    //Send block information to players in world 
+                                    Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)i.id, "fg");
+                                    //Send inventory data to player
+                                    Logic.GetInventoryAndSend(_Fromcliemt, Server.Clients[_Fromcliemt].user.username.ToUpper());
+
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
+                {
+                    DisplayBlockSystem.PlaceDisplayBlockItem(_Fromcliemt, sira, Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
+                    return;
+                }
                 else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "BGBLOCK")
                 {
 
@@ -1399,21 +1515,24 @@ namespace Bobcos_Server
                 }
                 else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "WRENCH")
                 {
-                  
-                    if(Logic.ReadWorldFg(worldname)[sira] == 0)
+                    if (Logic.ReadWorldFg(worldname)[sira] == 0)
                     {
                         int blockid = Logic.ReadWorldBg(worldname)[sira];
 
-                        
-
-
-
-                        //Check bg
+                        if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
+                        {
+                            return;
+                        }
                     }
                     else
                     {
-                        //look at fg
                         int blockid = Logic.ReadWorldFg(worldname)[sira];
+
+                        if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
+                        {
+                            return;
+                        }
+
                         if (blockid == 61)
                         {
                             Logic.EditWorldFg(worldname.ToUpper(), sira, 62);
