@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ItemDropManager : MonoBehaviour
@@ -31,7 +32,7 @@ public class ItemDropManager : MonoBehaviour
 
 
         SetImage(itemid, object_.GetComponent<DropItem>().Image);
-        object_.GetComponentInChildren<TextMesh>().text = itemcount.ToString();
+        object_.GetComponentInChildren<TextMeshPro>().text = itemcount.ToString();
 
         items.Add(item);
 

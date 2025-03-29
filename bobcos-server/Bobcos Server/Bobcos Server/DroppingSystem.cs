@@ -88,7 +88,7 @@ class DroppingSystem
 
 
                     //LOG
-                 //   DiscordPart.SendItemTake(Server.Clients[clientid].user.username, Worldname, itemdata.items[i.itemid].itemname, i.itemcount);
+                DiscordPart.SendItemTake(Server.Clients[clientid].user.username, Worldname, itemdata.items[i.itemid].itemname, i.itemcount);
 
 
 

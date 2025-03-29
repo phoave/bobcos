@@ -23,7 +23,7 @@ public class AdMobScript : MonoBehaviour
         RequestInterstitial();
 
     }
-    public void EnteredToMainMenu()
+    /*public void EnteredToMainMenu()
     {
         if (_bv == null)
         {
@@ -31,12 +31,12 @@ public class AdMobScript : MonoBehaviour
 
             RequestBanner();
         }
-    }
+    }*/
 
-    public void EnteredToWORLD()
+    /*public void EnteredToWORLD()
     {
         _bv.Destroy();
-    }
+    }*/
 
    
 
@@ -79,7 +79,7 @@ public class AdMobScript : MonoBehaviour
         this.interstitial = new InterstitialAd(adUnitId);
         // Create an empty ad request.
 
-        interstitial.OnAdClosed += Ýnterstitial_OnAdClosed;
+        interstitial.OnAdClosed += interstitial_OnAdClosed;
 
 
 
@@ -88,7 +88,7 @@ public class AdMobScript : MonoBehaviour
         this.interstitial.LoadAd(request);
     }
 
-    private void Ýnterstitial_OnAdClosed(object sender, System.EventArgs e)
+    private void interstitial_OnAdClosed(object sender, System.EventArgs e)
     {
         interstitial.Destroy();
         RequestInterstitial();

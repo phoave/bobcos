@@ -149,7 +149,7 @@ namespace Bobcos_Server
 
                     Logic.SendGlobalMessage(text, clientId);
 
-                    //DiscordPart.GlobalMessageLog(Server.Clients[clientId].user.username, text, Server.Clients[clientId].user.World);
+                    DiscordPart.GlobalMessageLog(Server.Clients[clientId].user.username, text, Server.Clients[clientId].user.World);
 
                 }
                 catch { }

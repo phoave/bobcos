@@ -128,7 +128,7 @@ public   class ClientHandle
             }
             AudioManager.instance.StopMusic();
 
-            AdMobScript.instance.EnteredToMainMenu();
+            //AdMobScript.instance.EnteredToMainMenu();
             UIManager.instance.menu2.SetActive(true);
             UIManager.instance.MainMenu.SetActive(false);
             UIManager.instance.GameMenu.SetActive(false);
@@ -153,7 +153,7 @@ public   class ClientHandle
             UIManager.instance.menu2.SetActive(false);
             UIManager.instance.MainMenu.SetActive(false);
             UIManager.instance.GameMenu.SetActive(true);
-            AdMobScript.instance.EnteredToWORLD();
+           // AdMobScript.instance.EnteredToWORLD();
 
         }
     }

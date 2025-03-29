@@ -74,7 +74,7 @@ namespace GameServer
             peer.Disconnect();
 
         }
-
+            
         private static void Netlistener_NetworkReceiveEvent(NetPeer peer, NetPacketReader reader, DeliveryMethod deliveryMethod)
         {
             Clients[peer.Id].tcp.ReceivedBytes(reader.GetRemainingBytes());

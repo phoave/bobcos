@@ -57,6 +57,9 @@ public class DisplayBlockItemManager : MonoBehaviour
         foreach(HandItem i in ItemManager.instance.HandItems) {
             if(i.id == imageToSet) { sprite.sprite = i.Icon; }
         }
+        foreach(Hair i in ItemManager.instance.HairItems) {
+            if(i.id == imageToSet) { sprite.sprite = i.Icon; }
+        }
 
     }
 }

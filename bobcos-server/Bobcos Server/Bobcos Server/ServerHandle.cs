@@ -1163,7 +1163,7 @@ namespace Bobcos_Server
                             }
                         }
 
-                        if (itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].itemtype == "DISPLAYBLOCK")
+                       if (itemdata.items[Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira]].itemtype == "DISPLAYBLOCK")
                         {
                             List<DisplayBlock> list = JsonSerializer.Deserialize<List<DisplayBlock>>(File.ReadAllText("displayBlockWorldData/" + worldname.ToUpper() + ".json"));
 
@@ -1361,9 +1361,10 @@ namespace Bobcos_Server
 
                 else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "BLOCK")
                 {
+                   
 
                     //Todo: if selected block is not 0, cancel block putting.
-                   if(Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira] != 0)
+                    if (Logic.ReadWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper())[sira] != 0)
                     { return; }
 
 
@@ -1395,51 +1396,41 @@ namespace Bobcos_Server
                         }
                     }
                 }
-                else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "DISPLAYBLOCK")
+                if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "DISPLAYBLOCK")
                 {
-                   
+                    int worldBlock = Logic.ReadWorldFg(worldname)[sira];
 
-                   if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
+                    if (itemdata.items[worldBlock].itemtype == "DISPLAYBLOCK")
                     {
                         DisplayBlockSystem.PlaceDisplayBlockItem(_Fromcliemt, sira, Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
                         return;
                     }
 
-                    if (Logic.ReadWorldFg(worldname)[sira] == 0)
+                    if (worldBlock == 0) // Check if the block can be placed
                     {
-                        // player is in world
-                        //Check inventory item count, if theres count -1 it
                         List<InventoryTile> inventory = Logic.GetInventory(Server.Clients[_Fromcliemt].user.username);
+                        InventoryTile selectedItem = inventory.FirstOrDefault(i => i.id == Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
 
-                        foreach (InventoryTile i in inventory)
+                        if (selectedItem != null && selectedItem.count > 0)
                         {
-                            if (Server.Clients[_Fromcliemt].user.CurrentSelecteditem == i.id)
-                            {
-                                // item found check count
-                                if (i.count > 0)
-                                {
-                                    //Change world data and remove 1 block from inventory
-                                    Logic.EditWorldFg(Server.Clients[_Fromcliemt].user.World.ToUpper(), sira, Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
-                                    Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -1);
-                                    //Send block information to players in world 
-                                    Logic.worlds[Server.Clients[_Fromcliemt].user.World.ToUpper()].SendBlockToEveryoneinworld(sira, (short)i.id, "fg");
-                                    //Send inventory data to player
-                                    Logic.GetInventoryAndSend(_Fromcliemt, Server.Clients[_Fromcliemt].user.username.ToUpper());
+                            // Change world data and remove 1 block from inventory
+                            string upperWorldName = Server.Clients[_Fromcliemt].user.World.ToUpper();
+                            Logic.EditWorldFg(upperWorldName, sira, Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
+                            Logic.AddItemToInventory(Server.Clients[_Fromcliemt].user.username.ToUpper(), Server.Clients[_Fromcliemt].user.CurrentSelecteditem, -1);
 
-                                }
-                            }
+                            // Send block information to players in world
+                            Logic.worlds[upperWorldName].SendBlockToEveryoneinworld(sira, (short)selectedItem.id, "fg");
+
+                            // Send updated inventory data to player
+                            Logic.GetInventoryAndSend(_Fromcliemt, Server.Clients[_Fromcliemt].user.username.ToUpper());
                         }
-                    }
-                    else
-                    {
-                        return;
                     }
                 }
                 else if (itemdata.items[Logic.ReadWorldFg(worldname)[sira]].itemtype == "DISPLAYBLOCK")
                 {
                     DisplayBlockSystem.PlaceDisplayBlockItem(_Fromcliemt, sira, Server.Clients[_Fromcliemt].user.CurrentSelecteditem);
-                    return;
                 }
+
                 else if (itemdata.items[Server.Clients[_Fromcliemt].user.CurrentSelecteditem].itemtype == "BGBLOCK")
                 {
 
