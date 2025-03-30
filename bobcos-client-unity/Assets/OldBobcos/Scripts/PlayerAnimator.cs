@@ -50,11 +50,10 @@ public class PlayerAnimator : MonoBehaviour
         ispunching = true;
         anim.SetTrigger("Punch");
 
-        yield return new WaitForSeconds(0.5f); // Adjust time based on animation duration
+        yield return new WaitForSeconds(0.5f); 
 
         ispunching = false;
     }
 
-    // New method to trigger punch animation
 
 }

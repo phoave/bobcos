@@ -363,7 +363,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424206
+  m_InstanceId: 1186422
 --- !u!1 &2052782723214067047
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424198
+  m_InstanceId: 1186414
 --- !u!1 &5650947571343027302
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,7 +898,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 91fd126e923f4f9469c446f09fbb2b98, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c18dba0d50607845bd5c4a04c7d6cfe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1113,7 +1113,7 @@ MonoBehaviour:
   - {x: 0.05999756, y: -0.034996033, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424204
+  m_InstanceId: 1186420
 --- !u!114 &587574637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1157,7 +1157,7 @@ MonoBehaviour:
   - {x: 0.11532494, y: -0.08414724, z: 0}
   m_ShapePathHash: -327804154
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424200
+  m_InstanceId: 1186416
 --- !u!114 &2079210159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   - {x: 0.050048828, y: -0.035003662, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424216
+  m_InstanceId: 1186432
 --- !u!114 &1646724064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,7 +1209,7 @@ MonoBehaviour:
   - {x: 0.050048828, y: -0.084999084, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424214
+  m_InstanceId: 1186430
 --- !u!114 &336204405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   - {x: 0.13500977, y: -0.07499695, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424196
+  m_InstanceId: 1186412
 --- !u!114 &1529932150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,7 +1279,7 @@ MonoBehaviour:
   - {x: 0.039567735, y: -0.08394348, z: 0}
   m_ShapePathHash: 1581208424
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424212
+  m_InstanceId: 1186428
 --- !u!114 &1251282267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1305,7 +1305,7 @@ MonoBehaviour:
   - {x: 0.05505371, y: -0.04499817, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424210
+  m_InstanceId: 1186426
 --- !u!114 &977384467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1331,7 +1331,7 @@ MonoBehaviour:
   - {x: 0.07501221, y: -0.04499817, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 424208
+  m_InstanceId: 1186424
 --- !u!1 &8687374126840079793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1779,8 +1779,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.069, y: 0.549}
-  m_SizeDelta: {x: 84.2668, y: 30.2572}
+  m_AnchoredPosition: {x: -0.052, y: 0.583}
+  m_SizeDelta: {x: 149.1195, y: 51.3745}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8816089523833126977
 MeshRenderer:
@@ -1879,7 +1879,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 246.75
+  m_fontSize: 419
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2559,7 +2559,7 @@ PrefabInstance:
       objectReference: {fileID: 321409163104159164}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.size
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: badges.Array.size
@@ -2572,27 +2572,27 @@ PrefabInstance:
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 91fd126e923f4f9469c446f09fbb2b98, type: 3}
+      objectReference: {fileID: 21300000, guid: 213454fdcd15a8749889a1154111c17f, type: 3}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 91fd126e923f4f9469c446f09fbb2b98, type: 3}
+      objectReference: {fileID: 21300000, guid: 3c18dba0d50607845bd5c4a04c7d6cfe, type: 3}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.data[3]
       value: 
-      objectReference: {fileID: 21300000, guid: c2c1003b714be9f4993f0a3709b96ef3, type: 3}
+      objectReference: {fileID: 21300000, guid: 601699627382f094cae8f127bac3698e, type: 3}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.data[4]
       value: 
-      objectReference: {fileID: 21300000, guid: 73d33ea2f2c87b044800e507f3da8991, type: 3}
+      objectReference: {fileID: 21300000, guid: d98be9aaf8103954d980ac16eec65966, type: 3}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.data[5]
       value: 
-      objectReference: {fileID: 21300000, guid: e663ac90b82f63b41b4b18c61f2e4c43, type: 3}
+      objectReference: {fileID: 21300000, guid: cf8900b56acea6b45a3a815265ea875c, type: 3}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.data[6]
       value: 
-      objectReference: {fileID: 21300000, guid: 8e37410e9db64e249bf4461a28a5f210, type: 3}
+      objectReference: {fileID: 21300000, guid: c57e6061663c0e84cbc78760fd47110f, type: 3}
     - target: {fileID: 1602321570069426448, guid: ff0ac2cf6ae1a2b4da1749410b06463f, type: 3}
       propertyPath: Badges.Array.data[7]
       value: 

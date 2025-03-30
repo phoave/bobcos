@@ -107,6 +107,7 @@ namespace Bobcos_Server
             {
                 //send leveled up message
                 ServerSend.SendWarning(clientid, $"You have leveled up! You are now {account.level} Level!");
+                Logic.AddGems(Server.Clients[clientid].user.username.ToUpper(), 100);
             }
 
             File.WriteAllText("accounts/" + username.ToUpper() + ".json", JsonSerializer.Serialize(account));

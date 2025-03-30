@@ -19,6 +19,14 @@ namespace Bobcos_Server
 
             string[] SplittedString = Command.Split(" ");
 
+            if (SplittedString[0] == "/day")
+            {
+                ServerSend.SendString(clientId, "day");
+            }
+            if (SplittedString[0] == "/night")
+            {
+                ServerSend.SendString(clientId, "night");
+            }
             if (SplittedString[0] == "/itemall")
             {
                 useraccount acc2 = JsonSerializer.Deserialize<useraccount>(File.ReadAllText($"accounts/{Server.Clients[clientId].user.username.ToUpper()}.json"));
@@ -126,6 +134,7 @@ namespace Bobcos_Server
                 catch { }
 
             }
+
             else if (SplittedString[0] == "/gm")
             {
                 try

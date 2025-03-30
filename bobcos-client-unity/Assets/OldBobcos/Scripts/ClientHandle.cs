@@ -32,7 +32,6 @@ public   class ClientHandle
         if (message == "day")
         {
             GameManager.instance.SetDay();
-
         }
         if (message == "AD")
         {
@@ -56,7 +55,6 @@ public   class ClientHandle
         if (message == "FBU")
         {
             FisherBob.instance.SetActive();
-
         }
     }
 
