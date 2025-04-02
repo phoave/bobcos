@@ -35,13 +35,13 @@ public   class ClientHandle
         }
         if (message == "AD")
         {
-            AdMobScript.instance.ShowRewardAd();
+            //AdMobScript.instance.ShowRewardAd();
 
         }
 
         if (message == "AD2")
         {
-            AdMobScript.instance.ShowInter();
+            //AdMobScript.instance.ShowInter();
 
         }
         if (message == "N1")

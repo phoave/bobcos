@@ -7,7 +7,7 @@ namespace Bobcos_Server
 {
     class Shop
     {
-        public static ShopItem[] ShopItems = new ShopItem[17];
+        public static ShopItem[] ShopItems = new ShopItem[19];
 
         public static void Initiliaze()
         {
@@ -29,7 +29,8 @@ namespace Bobcos_Server
             ShopItems[14] = new ShopItem() { ItemName = "Blonde Hair Pack", Price = 300, description = "This pack contains 1 Blonde Male hair,1 Blonde Female Hair", ItemID = 80, ShopId = 14, items = new ItemsToGet[] { new ItemsToGet() { itemId = 79, ItemCountToGet = 1 }, new ItemsToGet() { itemId = 80, ItemCountToGet = 1 } } };
             ShopItems[15] = new ShopItem() { ItemName = "Fishing pack", Price = 5000, description = "This pack contains 1 Wooden rod and 5 of every lure", ItemID = 93, ShopId = 15, items = new ItemsToGet[] { new ItemsToGet() { itemId = 83, ItemCountToGet = 1 }, new ItemsToGet() { itemId = 96, ItemCountToGet = 5 }, new ItemsToGet() { itemId = 97, ItemCountToGet = 5 }, new ItemsToGet() { itemId = 98, ItemCountToGet = 5 } } }; ShopItems[15] = new ShopItem() { ItemName = "Fishing pack", Price = 750, description = "This pack contains 1 Wooden rod and 5 of every lure", ItemID = 93, ShopId = 15, items = new ItemsToGet[] { new ItemsToGet() { itemId = 83, ItemCountToGet = 1 }, new ItemsToGet() { itemId = 96, ItemCountToGet = 5 }, new ItemsToGet() { itemId = 97, ItemCountToGet = 5 }, new ItemsToGet() { itemId = 98, ItemCountToGet = 5 } } };
             ShopItems[16] = new ShopItem() { ItemName = "Galaxy pack", Price = 300000, description = "This galaxy pack contains 1 galaxy wings and galaxy sword", ItemID = 108, ShopId = 16, items = new ItemsToGet[] { new ItemsToGet() { itemId = 108, ItemCountToGet = 1 }, new ItemsToGet() { itemId = 109, ItemCountToGet = 1 } } };
-
+            ShopItems[17] = new ShopItem() { ItemName = "Nuke ", Price = 12000, description = "Can Clear Worlds", ItemID = 112, ShopId = 17, items = new ItemsToGet[] { new ItemsToGet() { itemId = 112, ItemCountToGet = 1 }} };
+            ShopItems[18] = new ShopItem() { ItemName = "Displayblock ", Price = 7500, description = "Can Be used display items", ItemID = 110, ShopId = 18, items = new ItemsToGet[] { new ItemsToGet() { itemId = 110, ItemCountToGet = 1 } } };
 
         }
 

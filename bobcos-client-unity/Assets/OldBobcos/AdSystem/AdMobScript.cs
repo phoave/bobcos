@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GoogleMobileAds.Api;
+//using GoogleMobileAds.Api;
 using UnityEngine.UI;
 
 public class AdMobScript : MonoBehaviour
-{
-    public static AdMobScript instance;
-    public string AppId = "ca-app-pub-3587359981014635~1471434894";
+{/*
+   public static AdMobScript instance;
+    public string AppId = "";
     private BannerView _bv;
     private RewardedAd _ra;
     private InterstitialAd interstitial;
@@ -31,12 +31,12 @@ public class AdMobScript : MonoBehaviour
 
             RequestBanner();
         }
-    }*/
+    }
 
-    /*public void EnteredToWORLD()
+    public void EnteredToWORLD()
     {
         _bv.Destroy();
-    }*/
+    }
 
    
 
@@ -148,5 +148,5 @@ public class AdMobScript : MonoBehaviour
     private void _ra_OnAdClosed(object sender, System.EventArgs e)
     {
         RequestRewardedAd();
-    }
+    }*/
 }
