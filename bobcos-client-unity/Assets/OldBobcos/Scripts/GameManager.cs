@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject ShadowObject,OrangeLightObject, WrenchPrefab;
 
     public Sprite Day, Night;
-    public Light2D Sun;
+    public UnityEngine.Rendering.Universal.Light2D Sun;
     public void Start()
     {
         instance = this;

@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
                     axis = 0f;
                 }
 
-                rb.velocity = new Vector2((axis * Speed ) , rb.velocity.y);
+                rb.linearVelocity = new Vector2((axis * Speed ) , rb.linearVelocity.y);
                 if (iswalking)
                 {
                     Background.transform.position = new Vector3(Background.transform.position.x + -((axis * Speed) / 175), Background.transform.position.y);
@@ -210,7 +210,7 @@ public class Player : MonoBehaviour
 
 
                        
-                        rb.AddForce(new Vector3(rb.velocity.x, JumpPower));
+                        rb.AddForce(new Vector3(rb.linearVelocity.x, JumpPower));
                         AudioManager.instance.Jump();
 
                     }
@@ -224,9 +224,9 @@ public class Player : MonoBehaviour
 
                      
 
-                        if(rb.velocity.y > 3)
+                        if(rb.linearVelocity.y > 3)
                     {
-                        rb.velocity = new Vector3(rb.velocity.x, 3f);
+                        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 3f);
 
                     }
 

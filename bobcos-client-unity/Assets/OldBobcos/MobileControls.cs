@@ -26,7 +26,7 @@ public class MobileControls : MonoBehaviour
                 NoclipDownButton.SetActive(false);
 
 
-                player.rb.velocity = new Vector2((player.axis * player.Speed), player.rb.velocity.y);
+                player.rb.linearVelocity = new Vector2((player.axis * player.Speed), player.rb.linearVelocity.y);
                 if (player.iswalking)
                 {
                     player.Background.transform.position = new Vector3(player.Background.transform.position.x + -((player.axis * player.Speed) / 175), player.Background.transform.position.y);
@@ -146,7 +146,7 @@ public class MobileControls : MonoBehaviour
             player.TotalJumpAvailable--;
             player.isjumped = true;
 
-            player.rb.AddForce(new Vector3(player.rb.velocity.x, player.JumpPower));
+            player.rb.AddForce(new Vector3(player.rb.linearVelocity.x, player.JumpPower));
             AudioManager.instance.Jump();
             PlayerApperance apprence = player.gameObject.GetComponentInChildren<PlayerApperance>();
 
@@ -169,9 +169,9 @@ public class MobileControls : MonoBehaviour
 
       
 
-        if (player.rb.velocity.y > 3)
+        if (player.rb.linearVelocity.y > 3)
         {
-            player.rb.velocity = new Vector3(player.rb.velocity.x, 3f);
+            player.rb.linearVelocity = new Vector3(player.rb.linearVelocity.x, 3f);
 
         }
     }

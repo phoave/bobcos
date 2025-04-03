@@ -45,20 +45,20 @@ public class PlayerAnimator2 : MonoBehaviour
         {
         }
 
-        if (Player.GetComponent<Rigidbody2D>().velocity.y > 0.05f)
+        if (Player.GetComponent<Rigidbody2D>().linearVelocity.y > 0.05f)
         {
             currentanimid = 5; UpdateCloths();
 
             MainSprite.sprite = animations[currentanimid];
 
         }
-        if (Player.GetComponent<Rigidbody2D>().velocity.y < -0.2f)
+        if (Player.GetComponent<Rigidbody2D>().linearVelocity.y < -0.2f)
         {
             
           playFallingAnim();
         }
 
-        if (Player.GetComponent<Rigidbody2D>().velocity.x != 0 && !(Player.GetComponent<Rigidbody2D>().velocity.y > 0.05f))
+        if (Player.GetComponent<Rigidbody2D>().linearVelocity.x != 0 && !(Player.GetComponent<Rigidbody2D>().linearVelocity.y > 0.05f))
         {
             if (!iswalking) { StartCoroutine(playWalkingAnim()); }
 
@@ -78,13 +78,13 @@ public class PlayerAnimator2 : MonoBehaviour
                 }
             }
             iswalking = false;
-            if (Player.GetComponent<Rigidbody2D>().velocity.y > 0.05f)
+            if (Player.GetComponent<Rigidbody2D>().linearVelocity.y > 0.05f)
             {
                 currentanimid = 5; UpdateCloths();
 
                 MainSprite.sprite = animations[currentanimid];
             }
-            if (Player.GetComponent<Rigidbody2D>().velocity.y < -0.07f)
+            if (Player.GetComponent<Rigidbody2D>().linearVelocity.y < -0.07f)
             {
                 currentanimid = 7;
                 UpdateCloths();

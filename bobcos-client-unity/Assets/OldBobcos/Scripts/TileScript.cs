@@ -161,7 +161,7 @@ public class TileScript : MonoBehaviour
             PlayerApperance apprence = PlayerManager.instance.Players[0].GetComponentInChildren<PlayerApperance>();
 
             float random1 = UnityEngine.Random.Range(-400, 400);
-            PlayerManager.instance.Players[0].GetComponent<Player>().rb.AddForce(new Vector3(PlayerManager.instance.Players[0].GetComponent<Player>().rb.velocity.x + random1, 150));
+            PlayerManager.instance.Players[0].GetComponent<Player>().rb.AddForce(new Vector3(PlayerManager.instance.Players[0].GetComponent<Player>().rb.linearVelocity.x + random1, 150));
             PlayerManager.instance.Players[0].GetComponent<Player>().Hurt();
         }
     }

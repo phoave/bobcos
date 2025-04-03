@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 public class PerformanceOptimizer001 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<ShadowCaster2D>().enabled = false;
+        GetComponent<UnityEngine.Rendering.Universal.ShadowCaster2D>().enabled = false;
         StartCoroutine(Refresher1in4());
 
     }
@@ -28,11 +28,11 @@ public class PerformanceOptimizer001 : MonoBehaviour
 
                 if (distancebeetwenblockandplayer > 16)
                 {
-                    GetComponent<ShadowCaster2D>().enabled = false;
+                    GetComponent<UnityEngine.Rendering.Universal.ShadowCaster2D>().enabled = false;
                 }
                 else
                 {
-                    GetComponent<ShadowCaster2D>().enabled = true;
+                    GetComponent<UnityEngine.Rendering.Universal.ShadowCaster2D>().enabled = true;
 
                 }
 
